@@ -13,9 +13,7 @@
     <div class="quick-menu__panel" id="quick-menu-panel">
       <a href="#intro">INTRO</a>
       <a href="#about">ABOUT ME</a>
-      <a href="#web-project">WEB PROJECT</a>
       <a href="#graphic-work">GRAPHIC WORK</a>
-      <a href="#coding">CODING</a>
       <button class="quick-menu__toggle" type="button" aria-expanded="false" aria-controls="quick-menu-panel">
         <span class="quick-menu__hamburger" aria-hidden="true"></span>
         <span class="sr-only">메뉴 열기</span>
@@ -159,20 +157,31 @@
           </div>
         </div>
 
-        <div class="profile-intro" aria-hidden="true">
-          <h2>Designer Profile</h2>
-          <p>사람에게 좋은 디자인을 만듭니다.</p>
-        </div>
-
       </div>
 
     </section>
 
   </main>
 
+  <div class="profile-intro">
+    <h2>Designer Profile</h2>
+    <p class="profile-tagline">사용하기 좋은 디자인을 만듭니다.</p>
+    <div class="profile-details">
+      <p>브랜드의 분위기를 시각적으로 표현하고,<br>사용자가 쉽게 이해하고 사용할 수 있는 화면을 고민합니다.</p>
+      <p>Figma를 활용한 UI 디자인부터<br>HTML, CSS, JavaScript를 활용한 반응형 웹 구현까지<br>경험하며 디자인과 퍼블리싱을<br>함께 이해하는 웹디자이너로 성장하고 있습니다.</p>
+      <h3>SKILLS</h3>
+      <dl>
+        <dt>Design</dt><dd>Figma · Photoshop · Illustrator</dd>
+        <dt>Publishing</dt><dd>HTML · CSS · Responsive Web</dd>
+        <dt>Interaction</dt><dd>JavaScript · jQuery</dd>
+        <dt>Workflow</dt><dd>Git · GitHub</dd>
+      </dl>
+    </div>
+  </div>
+
   <span class="section-kicker about-kicker">ABOUT ME</span>
 
-  <img class="resume-scroll-sheet" src="./assets/%EB%94%94%EC%9E%90%EC%9D%B8%20%EC%9D%B4%EB%A0%A5%EC%84%9C.jpg" alt="디자이너 이력서" />
+  <img class="resume-scroll-sheet" src="./assets/resume.jpg" alt="디자이너 이력서" />
 
   <!-- 스크롤 서클 -->
   <div class="scroll-circle" aria-hidden="true">
@@ -181,7 +190,7 @@
         <path id="scrollArc" d="M 85 155 A 140 140 0 0 1 345 155" />
       </defs>
       <path d="M0 215 C0 96 96 0 215 0 C334 0 430 96 430 215Z" fill="#000" />
-      <text fill="#fff" font-size="15.5" font-family="SEBANG Gothic, sans-serif" letter-spacing=".6">
+      <text fill="#fff" font-size="31" font-family="SEBANG Gothic, sans-serif" letter-spacing="1.2">
         <textPath href="#scrollArc" startOffset="50%" text-anchor="middle">SCROLL DOWN</textPath>
       </text>
       <path d="M215 133v48m0 0-19-19m19 19 19-19" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
@@ -189,28 +198,7 @@
   </div>
 
   <section class="about" id="about" aria-label="About me skills">
-    <div class="about__details">
-      <div class="about__copy">
-        <p>HTML · CSS · JavaScript를 이용한 반응형 웹 구현까지<br>다양한 디자인과 인터랙션을 만들고 있습니다.</p>
-        <h3>SKILLS</h3>
-        <dl>
-          <dt>Design</dt><dd>Figma · Photoshop · Illustrator</dd>
-          <dt>Publishing</dt><dd>HTML · CSS · Responsive Web</dd>
-          <dt>Interaction</dt><dd>JavaScript · jQuery</dd>
-          <dt>Workflow</dt><dd>Git · GitHub</dd>
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <section class="work-section work-section--web" id="web-project" aria-labelledby="web-project-title">
-    <span class="section-kicker">WEB PROJECT</span>
-    <h2 id="web-project-title">Web<br>Experiences</h2>
-    <div class="work-section__cards" aria-label="웹 프로젝트 미리보기">
-      <img src="./assets/folder/pop-up/oliveyoung1-Recovered.jpg" alt="" />
-      <img src="./assets/folder/pop-up/%EB%84%B7%ED%94%8C1-1.jpg" alt="" />
-      <img src="./assets/folder/pop-up/%ED%88%AC%EC%8D%B8%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4.jpg" alt="" />
-    </div>
+    <div class="about__details" aria-hidden="true"></div>
   </section>
 
   <section class="graphic-work" id="graphic-work" aria-labelledby="graphic-title">
@@ -227,11 +215,6 @@
         <div class="graphic-folder__front"></div>
       </div>
     </div>
-  </section>
-
-  <section class="work-section work-section--coding" id="coding" aria-labelledby="coding-title">
-    <span class="section-kicker">CODING</span>
-    <h2 id="coding-title">Code<br>Experiences</h2>
   </section>
 
   <script src="./script.js"></script>

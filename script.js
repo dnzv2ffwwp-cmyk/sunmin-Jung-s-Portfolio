@@ -6,6 +6,7 @@ const resumeFolder = document.querySelector('.folder--resume');
 const resumeSheet = document.querySelector('.resume-scroll-sheet');
 const scrollCircle = document.querySelector('.scroll-circle');
 const aboutKicker = document.querySelector('.about-kicker');
+const profileIntro = document.querySelector('.profile-intro');
 const otherFolders = document.querySelectorAll('.folder:not(.folder--resume)');
 const folders = document.querySelector('.folders');
 const quickMenu = document.querySelector('.quick-menu');
@@ -70,7 +71,8 @@ function updateScene(){
 
   const grow = smoothstep(0.05, 0.65, p);
   const folderExit = smoothstep(0.68, 0.9, p);
-  const profileEntrance = smoothstep(0.75, 0.93, p);
+  const profileEntrance = smoothstep(0.38, 0.52, p);
+  const detailsReveal = smoothstep(0.76, 0.92, p);
   const titleMove = smoothstep(0, 0.45, p);
 
   // The resume rises out of the same red folder as it grows into the preview position.
@@ -83,15 +85,21 @@ function updateScene(){
 
   stage.style.setProperty('--title-x', `${lerp(0, mobile ? -25 : tablet ? -145 : -510, titleMove)}px`);
   stage.style.setProperty('--title-scale', lerp(1, mobile ? 0.7 : 0.51, titleMove));
-  stage.style.setProperty('--title-opacity', 1 - smoothstep(0.48, 0.7, p));
+  stage.style.setProperty('--title-opacity', 1 - smoothstep(0.36, 0.5, p));
   stage.style.setProperty('--other-folders-opacity', 1 - smoothstep(0.18, 0.5, p));
   otherFolders.forEach(folder => {
     folder.tabIndex = p >= 0.5 ? -1 : 0;
     folder.style.pointerEvents = p >= 0.5 ? 'none' : 'auto';
   });
   stage.style.setProperty('--decor-opacity', 1 - smoothstep(0.12, 0.44, p));
-  stage.style.setProperty('--profile-opacity', profileEntrance * (1 - smoothstep(0.9, 0.96, p)));
-  stage.style.setProperty('--profile-y', `${lerp(30, 0, profileEntrance)}px`);
+  const graphicApproach = window.innerHeight - graphicWork.getBoundingClientRect().top;
+  const profileExit = smoothstep(0, window.innerHeight * 0.7, graphicApproach);
+  profileIntro.style.setProperty('--profile-opacity', profileEntrance * (1 - profileExit));
+  profileIntro.style.setProperty('--profile-y', `${lerp(30, 0, profileEntrance)}px`);
+  profileIntro.style.setProperty('--tagline-opacity', profileEntrance * (1 - detailsReveal));
+  profileIntro.style.setProperty('--tagline-y', `${lerp(0, -18, detailsReveal)}px`);
+  profileIntro.style.setProperty('--details-opacity', detailsReveal * (1 - profileExit));
+  profileIntro.style.setProperty('--details-y', `${lerp(24, 0, detailsReveal)}px`);
   scene.style.setProperty('--intro-opacity', 1 - smoothstep(0.5, 0.72, p));
 
   const scrollOpacity = 1 - smoothstep(0, 0.13, p);
@@ -118,7 +126,6 @@ function updateScene(){
   resumeSheet.style.clipPath = `inset(0 0 ${clippedBottom}px 0)`;
   const graphicScroll = -graphicWork.getBoundingClientRect().top;
   resumeSheet.style.opacity = `${1 - smoothstep(0, window.innerHeight * 0.5, graphicScroll)}`;
-  const graphicApproach = window.innerHeight - graphicWork.getBoundingClientRect().top;
   aboutKicker.style.setProperty('--about-kicker-opacity',
     profileEntrance * (1 - smoothstep(0, window.innerHeight * 0.7, graphicApproach))
   );
@@ -140,10 +147,10 @@ function setMenuOpen(open){
 
 function updateQuickMenu(){
   const currentY = Math.max(0, window.scrollY);
-  const movingUp = currentY < lastScrollY - 4;
+  const delta = currentY - lastScrollY;
+  const movingUp = delta < 0;
   const nearTop = currentY < 16;
   quickMenu.classList.toggle('is-visible', nearTop || movingUp);
-  if(currentY > lastScrollY + 4) setMenuOpen(false);
   lastScrollY = currentY;
 }
 

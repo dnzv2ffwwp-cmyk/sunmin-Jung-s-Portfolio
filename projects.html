@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects | Jung’s Portfolio</title>
+  <link rel="stylesheet" href="./css/fonts.css" />
+  <link rel="stylesheet" href="./css/subpages.css" />
+  <link rel="stylesheet" href="./css/project-process.css" />
+  <link rel="stylesheet" href="./css/header.css" />
+</head>
+<body class="subpage subpage--projects">
+  <nav class="quick-menu" aria-label="페이지 바로가기">
+    <div class="quick-menu__panel" id="quick-menu-panel">
+      <a href="./index.html#intro">INTRO</a>
+      <a href="./index.html#about">ABOUT ME</a>
+      <a href="./visual-works.html">VISUAL WORKS</a>
+      <a href="./projects.html" aria-current="page">PROJECTS</a>
+      <a href="./contact.html">CONTACT</a>
+      <button class="quick-menu__toggle" type="button" aria-expanded="false" aria-controls="quick-menu-panel">
+        <span class="quick-menu__hamburger" aria-hidden="true"></span>
+        <span class="sr-only">메뉴 열기</span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <div class="subpage-hero">
+      <span class="subpage-hero__eyebrow">JUNG’S PORTFOLIO / 02</span>
+      <h1>PROJECTS</h1>
+      <p>디자인을 실제 웹으로 연결한 프로젝트입니다.</p>
+    </div>
+
+    <nav class="category-nav" aria-label="프로젝트 목록">
+      <a href="#mellowee">MELLOWEE</a>
+      <a href="#mobbly">MOBBLY</a>
+    </nav>
+
+    <section class="project-detail" id="mellowee" aria-labelledby="mellowee-title">
+      <div class="project-detail__heading"><span>01</span><h2 id="mellowee-title">MELLOWEE</h2><p>아동복 쇼핑몰 웹사이트</p></div>
+      <div class="project-process">
+        <div class="project-process__intro">
+          <span class="project-process__eyebrow">RESPONSIVE DESIGN / 01</span>
+          <h3>콘텐츠가 읽히는 순서에 맞춰<br />화면을 다시 구성했습니다.</h3>
+          <p>넓은 화면에서는 상품과 스토리를 나란히 보여주고, 1024px 이하에서는 한 열로 쌓습니다. 작은 화면에서는 히어로 문구를 이미지 아래쪽으로 옮기고 상품 목록을 한 열로 바꿨습니다.</p>
+        </div>
+        <div class="project-process__facts" aria-label="멜로위 반응형 구현 요약">
+          <div><strong>1024px</strong><span>NEW ITEMS·LOOKBOOK 두 열 → 한 열, 모바일 메뉴 전환</span></div>
+          <div><strong>680px</strong><span>히어로 문구 하단 배치, 섹션 여백과 카드 크기 조정</span></div>
+          <div><strong>402px</strong><span>상품·인스타그램 그리드를 한 열로 변경</span></div>
+          <div><strong>Swiper</strong><span>상품 슬라이드는 768px 미만에서 1장, 이상에서 4장 표시</span></div>
+        </div>
+        <div class="project-process__preview" data-preview>
+          <div class="project-process__preview-head">
+            <div><span class="project-process__eyebrow">LIVE PREVIEW</span><h4>화면 크기별로 보기</h4></div>
+            <div class="project-process__devices" role="group" aria-label="멜로위 화면 크기">
+              <button type="button" data-width="1440" data-height="900" aria-pressed="true">PC</button>
+              <button type="button" data-width="768" data-height="900" aria-pressed="false">태블릿</button>
+              <button type="button" data-width="390" data-height="844" aria-pressed="false">모바일</button>
+            </div>
+          </div>
+          <div class="project-process__stage" data-preview-stage>
+            <div class="project-process__canvas" data-preview-canvas>
+              <iframe src="./assets/mellowee/index.html" title="멜로위 반응형 웹사이트 미리보기" loading="lazy" data-preview-frame></iframe>
+            </div>
+          </div>
+          <a class="project-process__open" href="./assets/mellowee/index.html" target="_blank" rel="noopener">멜로위 사이트 크게 보기 ↗</a>
+        </div>
+        <p class="project-process__source">구현 근거: <a href="./assets/mellowee/css/styles.css">메인 레이아웃 CSS</a> · <a href="./assets/mellowee/css/header.css">헤더 CSS</a> · <a href="./assets/mellowee/js/script.js">슬라이더 JS</a></p>
+      </div>
+    </section>
+
+    <section class="project-detail" id="mobbly" aria-labelledby="mobbly-title">
+      <div class="project-detail__heading"><span>02</span><h2 id="mobbly-title">MOBBLY</h2><p>키즈 가구 웹사이트</p></div>
+      <div class="project-process">
+        <div class="project-process__intro">
+          <span class="project-process__eyebrow">RESPONSIVE DESIGN / 02</span>
+          <h3>기기에 맞는 이미지와 탐색 방식을<br />각각 준비했습니다.</h3>
+          <p>히어로 배너에 PC·태블릿·모바일 이미지를 따로 배치했습니다. 1024px 이하에서는 전체 메뉴를 모바일 헤더로 바꾸고, 768px 이하에서는 상품 목록을 두 열로 줄였습니다.</p>
+        </div>
+        <div class="project-process__facts" aria-label="모블리 반응형 구현 요약">
+          <div><strong>1024px</strong><span>PC 헤더 → 고정형 모바일 헤더·전체 메뉴 패널</span></div>
+          <div><strong>배너 교체</strong><span>PC·태블릿·모바일용 이미지를 화면 폭에 맞춰 표시</span></div>
+          <div><strong>768px</strong><span>상품 목록 4열 → 2열, 히어로 높이 500px</span></div>
+          <div><strong>Swiper</strong><span>히어로 배너를 자동 재생하며 페이지 표시점으로 이동</span></div>
+        </div>
+        <div class="project-process__preview" data-preview>
+          <div class="project-process__preview-head">
+            <div><span class="project-process__eyebrow">LIVE PREVIEW</span><h4>화면 크기별로 보기</h4></div>
+            <div class="project-process__devices" role="group" aria-label="모블리 화면 크기">
+              <button type="button" data-width="1440" data-height="900" aria-pressed="true">PC</button>
+              <button type="button" data-width="768" data-height="900" aria-pressed="false">태블릿</button>
+              <button type="button" data-width="390" data-height="844" aria-pressed="false">모바일</button>
+            </div>
+          </div>
+          <div class="project-process__stage" data-preview-stage>
+            <div class="project-process__canvas" data-preview-canvas>
+              <iframe src="./assets/mobbly/index.html" title="모블리 반응형 웹사이트 미리보기" loading="lazy" data-preview-frame></iframe>
+            </div>
+          </div>
+          <a class="project-process__open" href="./assets/mobbly/index.html" target="_blank" rel="noopener">모블리 사이트 크게 보기 ↗</a>
+        </div>
+        <p class="project-process__source">구현 근거: <a href="./assets/mobbly/css/common.css">공통 반응형 CSS</a> · <a href="./assets/mobbly/css/header.css">헤더 CSS</a> · <a href="./assets/mobbly/css/index.css">메인 CSS</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="subpage-footer"><a href="./index.html">메인으로 돌아가기 ↗</a><span>JUNG’S PORTFOLIO</span></footer>
+  <script src="./js/header.js"></script>
+  <script src="./js/project-process.js"></script>
+</body>
+</html>

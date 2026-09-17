@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Design Experiences</title>
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./css/fonts.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/header.css" />
+  <link rel="stylesheet" href="./css/footer.css" />
 </head>
 
 <body>
@@ -13,7 +16,9 @@
     <div class="quick-menu__panel" id="quick-menu-panel">
       <a href="#intro">INTRO</a>
       <a href="#about">ABOUT ME</a>
-      <a href="#graphic-work">GRAPHIC WORK</a>
+        <a href="./visual-works.html">VISUAL WORKS</a>
+        <a href="./projects.html">PROJECTS</a>
+        <a href="./contact.html">CONTACT</a>
       <button class="quick-menu__toggle" type="button" aria-expanded="false" aria-controls="quick-menu-panel">
         <span class="quick-menu__hamburger" aria-hidden="true"></span>
         <span class="sr-only">메뉴 열기</span>
@@ -94,17 +99,17 @@
             >
 
               <img
-                src="./assets/folder/poster/%ED%99%94%EC%9E%A5%ED%92%88-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
+                src="./assets/folder/poster/cosmetic.jpg"
                 alt=""
               />
 
               <img
-                src="./assets/folder/poster/%ED%82%A4%EB%B3%B4%EB%93%9C-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
+                src="./assets/folder/poster/keyboard.jpg"
                 alt=""
               />
 
               <img
-                src="./assets/folder/poster/%EA%B0%80%EA%B5%AC%20%ED%8F%AC%EC%8A%A4%ED%84%B02%20%EC%BB%A8%ED%8E%8C%20%ED%9B%84.jpg"
+                src="./assets/folder/poster/furniture.jpg"
                 alt=""
               />
 
@@ -119,7 +124,7 @@
           <div
             class="folder"
             tabindex="0"
-            aria-label="주황 폴더 포스터 보기"
+            aria-label="주황 폴더 팝업 보기"
           >
 
             <!-- 기존 SVG 에셋: <img class="folder__icon" src="./assets/folder/folder-orange.svg" alt="" /> -->
@@ -134,17 +139,17 @@
             >
 
               <img
-                src="./assets/folder/poster/%EA%B0%80%EA%B5%AC%20%ED%8F%AC%EC%8A%A4%ED%84%B02%20%EC%BB%A8%ED%8E%8C%20%ED%9B%84.jpg"
+                src="./assets/folder/pop-up/twosome.jpg"
                 alt=""
               />
 
               <img
-                src="./assets/folder/poster/%ED%82%A4%EB%B3%B4%EB%93%9C-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
+                src="./assets/folder/pop-up/oliveyoung1-Recovered.jpg"
                 alt=""
               />
 
               <img
-                src="./assets/folder/poster/%ED%99%94%EC%9E%A5%ED%92%88-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"
+                src="./assets/folder/pop-up/netflix.jpg"
                 alt=""
               />
 
@@ -154,6 +159,22 @@
               <path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" />
             </svg>
 
+          </div>
+          <!-- PINK FOLDER -->
+          <div class="folder folder--banner" tabindex="0" aria-label="핑크 폴더 배너 보기">
+            <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+            <div class="folder__posters" aria-hidden="true">
+              <img src="./assets/folder/banner/ex1.jpg" alt="" />
+              <img src="./assets/folder/banner/ex2.jpg" alt="" />
+              <img src="./assets/folder/banner/ex3.jpg" alt="" />
+            </div>
+            <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+          </div>
+          <!-- PURPLE FOLDER -->
+          <div class="folder folder--detail" tabindex="0" aria-label="보라 폴더 상세페이지 보기">
+            <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+            <div class="folder__posters" aria-hidden="true"><img src="./assets/folder/detail-page/headphones.jpg" alt="" /></div>
+            <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
           </div>
         </div>
 
@@ -166,17 +187,6 @@
   <div class="profile-intro">
     <h2>Designer Profile</h2>
     <p class="profile-tagline">사용하기 좋은 디자인을 만듭니다.</p>
-    <div class="profile-details">
-      <p>브랜드의 분위기를 시각적으로 표현하고,<br>사용자가 쉽게 이해하고 사용할 수 있는 화면을 고민합니다.</p>
-      <p>Figma를 활용한 UI 디자인부터<br>HTML, CSS, JavaScript를 활용한 반응형 웹 구현까지<br>경험하며 디자인과 퍼블리싱을<br>함께 이해하는 웹디자이너로 성장하고 있습니다.</p>
-      <h3>SKILLS</h3>
-      <dl>
-        <dt>Design</dt><dd>Figma · Photoshop · Illustrator</dd>
-        <dt>Publishing</dt><dd>HTML · CSS · Responsive Web</dd>
-        <dt>Interaction</dt><dd>JavaScript · jQuery</dd>
-        <dt>Workflow</dt><dd>Git · GitHub</dd>
-      </dl>
-    </div>
   </div>
 
   <span class="section-kicker about-kicker">ABOUT ME</span>
@@ -198,26 +208,159 @@
   </div>
 
   <section class="about" id="about" aria-label="About me skills">
-    <div class="about__details" aria-hidden="true"></div>
-  </section>
-
-  <section class="graphic-work" id="graphic-work" aria-labelledby="graphic-title">
-    <div class="graphic-work__row">
-      <div class="graphic-work__copy">
-        <span class="section-kicker">GRAPHIC WORK</span>
-        <h2 id="graphic-title">Design<br>Experiences</h2>
+    <div class="about__details">
+      <div class="profile-details">
+        <p>브랜드의 분위기를 시각적으로 표현하고,<br>사용자가 쉽게 이해하고 사용할 수 있는 화면을 고민합니다.</p>
+        <p>Figma를 활용한 UI 디자인부터<br>HTML, CSS, JavaScript를 활용한 반응형 웹 구현까지<br>경험하며 디자인과 퍼블리싱을<br>함께 이해하는 웹디자이너로 성장하고 있습니다.</p>
+        <h3>SKILLS</h3>
+        <dl>
+          <dt>Design</dt><dd>Figma · Photoshop · Illustrator</dd>
+          <dt>Publishing</dt><dd>HTML · CSS · Responsive Web</dd>
+          <dt>Interaction</dt><dd>JavaScript · jQuery</dd>
+          <dt>Workflow</dt><dd>Git · GitHub</dd>
+        </dl>
       </div>
-      <div class="graphic-folder" aria-label="그래픽 포스터 작업">
-        <img class="graphic-folder__poster graphic-folder__poster--left" src="./assets/folder/poster/%ED%82%A4%EB%B3%B4%EB%93%9C-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="키보드 포스터" />
-        <img class="graphic-folder__poster graphic-folder__poster--center" src="./assets/folder/poster/%EA%B0%80%EA%B5%AC%20%ED%8F%AC%EC%8A%A4%ED%84%B02%20%EC%BB%A8%ED%8E%8C%20%ED%9B%84.jpg" alt="가구 포스터" />
-        <img class="graphic-folder__poster graphic-folder__poster--right" src="./assets/folder/poster/%ED%99%94%EC%9E%A5%ED%92%88-%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg" alt="화장품 포스터" />
-        <div class="graphic-folder__tab"></div>
-        <div class="graphic-folder__front"></div>
+      <div class="mobile-resume-layout">
+        <div class="mobile-resume-layout__image" aria-hidden="true"></div>
+        <div class="mobile-resume-layout__copy">
+          <h2>Designer Profile</h2>
+          <p>브랜드의 분위기를 시각적으로 표현하고,<br>사용자가 쉽게 이해하고 사용할 수 있는 화면을 고민합니다.</p>
+          <p>Figma를 활용한 UI 디자인부터<br>HTML, CSS, JavaScript를 활용한 반응형 웹 구현까지<br>경험하며 디자인과 퍼블리싱을<br>함께 이해하는 웹디자이너로 성장하고 있습니다.</p>
+          <h3>SKILLS</h3>
+          <dl>
+            <dt>Design</dt><dd>Figma · Photoshop · Illustrator</dd>
+            <dt>Publishing</dt><dd>HTML · CSS · Responsive Web</dd>
+            <dt>Interaction</dt><dd>JavaScript · jQuery</dd>
+            <dt>Workflow</dt><dd>Git · GitHub</dd>
+          </dl>
+        </div>
       </div>
     </div>
   </section>
 
-  <script src="./script.js"></script>
+  <nav class="section-directory" aria-label="포트폴리오 섹션">
+    <div class="section-directory__card">
+      <div class="section-directory__top" aria-hidden="true"></div>
+      <a class="section-directory__row section-directory__row--intro" href="#intro">
+        <span class="section-directory__label"><strong>INTRO</strong></span>
+        <img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" />
+      </a>
+      <a class="section-directory__row" href="#about">
+        <span class="section-directory__label"><strong>ABOUT ME</strong><small>RESUME</small></span>
+        <img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" />
+      </a>
+      <a class="section-directory__row" href="./visual-works.html">
+        <span class="section-directory__label"><strong>VISUAL WORKS</strong><small>POP-UP, POSTER, BANNER, DETAIL PAGE</small></span>
+        <img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" />
+      </a>
+      <a class="section-directory__row" href="./projects.html">
+        <span class="section-directory__label"><strong>PROJECTS</strong><small>WEB PROJECT, TEAM PROJECT</small></span>
+        <img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" />
+      </a>
+      <a class="section-directory__row section-directory__row--contact" href="./contact.html">
+        <span class="section-directory__label"><strong>CONTACT</strong></span>
+        <img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" />
+      </a>
+      <div class="section-directory__bottom" aria-hidden="true"></div>
+    </div>
+  </nav>
+
+  <div class="portfolio-marquee" aria-label="Jung’s Portfolio SunMin">
+    <div class="portfolio-marquee__track" aria-hidden="true">
+      <span>Jung’s Portfolio SunMin&nbsp;</span><span>Jung’s Portfolio SunMin&nbsp;</span>
+    </div>
+  </div>
+
+  <div class="visual-works-shell">
+  <section class="visual-works" id="visual-works" aria-labelledby="visual-works-title">
+    <div class="visual-works__copy">
+      <h2 id="visual-works-title">VISUAL<br />WORKS</h2>
+      <p class="visual-works__lead">작은 디자인에도 목적을 담습니다.</p>
+      <p>배너, 팝업, 포스터, 상세페이지 등<br />다양한 웹 콘텐츠를 제작하며<br />정보의 우선순위와 브랜드 이미지를 함께 고민했습니다.</p>
+    </div>
+    <div class="visual-works__folders" aria-label="비주얼 작업 모음">
+      <a class="folder visual-folder visual-folder--pink" href="./visual-works.html#banner" aria-label="배너 디자인 보기">
+        <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+        <div class="folder__posters">
+          <img src="./assets/folder/banner/ex1.jpg" alt="배너 디자인 1" />
+          <img src="./assets/folder/banner/ex2.jpg" alt="배너 디자인 2" />
+          <img src="./assets/folder/banner/ex3.jpg" alt="배너 디자인 3" />
+        </div>
+        <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+      </a>
+      <a class="folder visual-folder visual-folder--orange" href="./visual-works.html#pop-up" aria-label="팝업 디자인 보기">
+        <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+        <div class="folder__posters">
+          <img src="./assets/folder/pop-up/twosome.jpg" alt="투썸 팝업 디자인" />
+          <img src="./assets/folder/pop-up/oliveyoung1-Recovered.jpg" alt="올리브영 팝업 디자인" />
+          <img src="./assets/folder/pop-up/netflix.jpg" alt="넷플릭스 팝업 디자인" />
+        </div>
+        <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+      </a>
+      <a class="folder visual-folder visual-folder--green" href="./visual-works.html#poster" aria-label="포스터 디자인 보기">
+        <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+        <div class="folder__posters">
+          <img src="./assets/folder/poster/cosmetic.jpg" alt="화장품 포스터" />
+          <img src="./assets/folder/poster/furniture.jpg" alt="가구 포스터" />
+          <img src="./assets/folder/poster/keyboard.jpg" alt="키보드 포스터" />
+        </div>
+        <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+      </a>
+      <a class="folder visual-folder visual-folder--red visual-folder--center" href="#about" aria-label="디자이너 이력서 보기">
+        <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+        <div class="folder__posters"><img src="./assets/resume.jpg" alt="디자이너 이력서" /></div>
+        <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+      </a>
+      <a class="folder visual-folder visual-folder--purple" href="./visual-works.html#detail-page" aria-label="상세페이지 디자인 보기">
+        <svg class="folder__back" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 0H139Q159 0 175 15L214 54Q224 64 238 64H414Q448 64 448 98V152H0V34Q0 0 34 0Z" /></svg>
+        <div class="folder__posters"><img src="./assets/folder/detail-page/headphones.jpg" alt="헤드폰 상세페이지 디자인" /></div>
+        <svg class="folder__front" viewBox="0 0 448 416" aria-hidden="true"><path d="M34 112H414Q448 112 448 146V382Q448 416 414 416H34Q0 416 0 382V146Q0 112 34 112Z" /></svg>
+      </a>
+    </div>
+  </section>
+  </div>
+
+  <section class="projects" id="projects" aria-labelledby="projects-title">
+    <div class="projects__left">
+      <div class="project-preview project-preview--mellow" role="img" aria-label="아동복 쇼핑몰 웹사이트 프로젝트 미리보기">
+        <img src="./assets/mellowee-page-main.png" alt="" />
+      </div>
+    </div>
+    <div class="projects__right">
+      <a class="projects__heading" href="./projects.html"><h2 id="projects-title">PROJECTS</h2><img src="./assets/icon/akar-icons_arrow-up-right.svg" alt="" aria-hidden="true" /></a>
+      <p>디자인을 실제 웹으로 연결합니다.<br />브랜드 분석과 벤치마킹부터<br />UI 디자인, 반응형 설계, 퍼블리싱까지<br />웹사이트 제작의 전체 과정을 경험했습니다.</p>
+      <div class="project-preview project-preview--mobbly" role="img" aria-label="키즈 가구 웹사이트 프로젝트 미리보기">
+        <img src="./assets/mobbly-mainpage.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="contact" aria-label="정선민 연락처">
+    <div class="site-footer__surface">
+      <img class="site-footer__vector" src="./assets/footer-vector.svg" alt="" aria-hidden="true" />
+
+      <div class="site-footer__main">
+        <div class="site-footer__identity">
+          <strong class="site-footer__name">정선민</strong>
+          <span class="site-footer__english">JUNG SUNMIN · WEB DESIGNER</span>
+          <address class="site-footer__details">
+            Email: <a href="mailto:sjw03242@gmail.com">sjw03242@gmail.com</a>
+          </address>
+        </div>
+        <nav class="site-footer__links" aria-label="푸터 메뉴">
+          <a class="site-footer__notice" href="./projects.html">프로젝트 보기 <span aria-hidden="true">↗</span></a>
+          <a href="mailto:sjw03242@gmail.com">문의하기 <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+
+      <div class="site-footer__bottom">
+        <small>© 2026 Jung Sunmin. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/header.js"></script>
+  <script src="./js/main.js"></script>
 
 </body>
 </html>

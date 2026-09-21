@@ -686,6 +686,7 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
 }
 .project-preview--mellow.is-scrolling img { transform: translateY(calc(0px - var(--preview-travel, 0px))); }
 .project-preview--mobbly { flex: 1; min-height: 0; }
+.project-clip-defs { position: absolute; overflow: hidden; pointer-events: none; }
 
 @media (min-width: 761px) and (max-width: 1199px) {
   .visual-works { height: max(1050px, 136vw); min-height: 0; border-radius: 90px 90px 0 0; }

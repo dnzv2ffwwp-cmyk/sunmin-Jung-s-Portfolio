@@ -35,6 +35,7 @@ let folderDragCandidate = false;
 let sceneFrame = 0;
 let resizeFrame = 0;
 let lastLayoutWidth = window.innerWidth;
+let mobileSheetStart = {left: 0, top: 0, width: 0};
 
 function animateResumeHover(now){
   const progress = clamp((now - hoverStart) / hoverDuration, 0, 1);
@@ -76,13 +77,39 @@ function updateScene(){
   const tablet = vw > 760 && vw < 1200;
   const largeScreen = vw >= 1600;
 
+  if(mobile && p >= 0.995){
+    const aboutBox = aboutSection.getBoundingClientRect();
+    const finalImageBox = mobileResumePosition.getBoundingClientRect();
+    if(!mobileSheetStart.width){
+      mobileSheetStart = {left: finalImageBox.left, top: finalImageBox.top, width: finalImageBox.width};
+    }
+    const aboutTravel = Math.max(0, window.innerHeight - aboutBox.top);
+    const handoff = smoothstep(0, window.innerHeight * 0.65, aboutTravel);
+    const handoffComplete = handoff >= 0.999;
+    const directoryApproach = window.innerHeight - sectionDirectory.getBoundingClientRect().top;
+    resumeSheet.style.setProperty('--resume-sheet-x', `${lerp(mobileSheetStart.left, finalImageBox.left, handoff)}px`);
+    resumeSheet.style.setProperty('--resume-sheet-y', `${lerp(mobileSheetStart.top, finalImageBox.top, handoff)}px`);
+    resumeSheet.style.width = `${lerp(mobileSheetStart.width, finalImageBox.width, handoff)}px`;
+    resumeSheet.style.clipPath = 'inset(0)';
+    resumeSheet.style.opacity = handoffComplete ? '0' : '1';
+    mobileResumePosition.style.setProperty('--mobile-static-opacity', handoffComplete ? 1 : 0);
+    mobileResumeLayout.style.setProperty('--mobile-copy-opacity', 1);
+    mobileResumeLayout.style.setProperty('--mobile-copy-offset', '0px');
+    profileIntro.style.setProperty('--profile-opacity', 0);
+    aboutKicker.style.setProperty('--about-kicker-opacity',
+      1 - smoothstep(0, window.innerHeight * 0.7, directoryApproach)
+    );
+    scrollCircle.style.setProperty('--scroll-opacity', 0);
+    scene.style.setProperty('--intro-opacity', 0);
+    return;
+  }
+
   const grow = smoothstep(0.05, 0.65, p);
   const folderExit = smoothstep(0.68, 0.9, p);
   const profileEntrance = smoothstep(0.38, 0.52, p);
   const detailsReveal = smoothstep(0.76, 0.92, p);
   const titleMove = smoothstep(0, 0.45, p);
   const mobileHeaderExit = mobile ? smoothstep(0.62, 0.9, p) : 0;
-  const aboutTravel = window.innerHeight - aboutSection.getBoundingClientRect().top;
   const mobileCopyReveal = mobile ? smoothstep(0.9, 0.99, p) : 0;
 
   mobileResumeLayout.style.setProperty('--mobile-copy-opacity', mobileCopyReveal);
@@ -139,8 +166,6 @@ function updateScene(){
   const folderLip = folderBox.top + beyondIntro + folderBox.height * (112 / 416);
   const clippedBottom = Math.max(0, sheetHeight - Math.max(0, folderLip - sheetTop)) * (1 - folderExit);
 
-  const mobileHandoff = mobile ? smoothstep(0, window.innerHeight, aboutTravel) : 0;
-  const finalImageBox = mobile ? mobileResumePosition.getBoundingClientRect() : null;
   const aboutBox = profileDetails.parentElement.getBoundingClientRect();
   const rightStart = aboutBox.left + aboutBox.width * 0.48;
   const rightWidth = aboutBox.width * 0.52;
@@ -154,27 +179,27 @@ function updateScene(){
   const pinProgress = mobile ? 0 : smoothstep(0.74, 0.9, p);
   const releaseDistance = mobile ? 0 : Math.max(0, pinnedTop - profileDetails.getBoundingClientRect().bottom);
   const displayedSheetLeft = mobile
-    ? lerp(sheetLeft, finalImageBox.left, mobileHandoff)
+    ? sheetLeft
     : lerp(sheetLeft, pinnedLeft, pinProgress);
   const displayedSheetTop = mobile
-    ? lerp(sheetTop, finalImageBox.top, mobileHandoff)
+    ? sheetTop
     : lerp(sheetTop, pinnedTop, pinProgress) - releaseDistance * pinProgress;
   const displayedSheetWidth = mobile
-    ? lerp(sheetWidth, finalImageBox.width, mobileHandoff)
+    ? sheetWidth
     : lerp(sheetWidth, pinnedWidth, pinProgress);
   resumeSheet.style.setProperty('--resume-sheet-x', `${displayedSheetLeft}px`);
   resumeSheet.style.setProperty('--resume-sheet-y', `${displayedSheetTop}px`);
   resumeSheet.style.width = `${displayedSheetWidth}px`;
   if(mobile){
-    const copyShift = displayedSheetTop + displayedSheetWidth * 1.5
-      - finalImageBox.top - finalImageBox.height;
-    mobileResumeLayout.style.setProperty('--mobile-copy-offset', `${copyShift + (1 - mobileCopyReveal) * 16}px`);
+    mobileSheetStart = {left: displayedSheetLeft, top: displayedSheetTop, width: displayedSheetWidth};
+    mobileResumePosition.style.setProperty('--mobile-static-opacity', 0);
+    mobileResumeLayout.style.setProperty('--mobile-copy-offset', `${(1 - mobileCopyReveal) * 16}px`);
   }
   resumeSheet.style.clipPath = `inset(0 0 ${clippedBottom}px 0)`;
   const directoryScroll = -sectionDirectory.getBoundingClientRect().top;
   resumeSheet.style.opacity = `${1 - smoothstep(0, window.innerHeight * 0.5, directoryScroll)}`;
   aboutKicker.style.setProperty('--about-kicker-opacity',
-    profileEntrance * (1 - mobileHandoff) * (1 - smoothstep(0, window.innerHeight * 0.7, directoryApproach))
+    profileEntrance * (1 - smoothstep(0, window.innerHeight * 0.7, directoryApproach))
   );
 }
 

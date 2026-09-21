@@ -489,11 +489,17 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
     aspect-ratio:2 / 3;
     margin:0 auto 20px;
   }
+  .mobile-resume-layout__image img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:var(--mobile-static-opacity,1);
+  }
   .mobile-resume-layout__copy{
     text-align:center;
     opacity:var(--mobile-copy-opacity,0);
     transform:translateY(var(--mobile-copy-offset,16px));
-    will-change:opacity,transform;
   }
   .mobile-resume-layout__copy h2{
     margin:0 0 10px;

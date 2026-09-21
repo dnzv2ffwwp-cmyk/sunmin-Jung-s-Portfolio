@@ -105,6 +105,7 @@ function updateScene(){
     folder.style.pointerEvents = p >= 0.5 ? 'none' : 'auto';
   });
   stage.style.setProperty('--decor-opacity', 1 - smoothstep(0.12, 0.44, p));
+  stage.style.setProperty('--decor-rotation', `${lerp(0, 360, smoothstep(0, 0.44, p))}deg`);
   const directoryApproach = window.innerHeight - sectionDirectory.getBoundingClientRect().top;
   const directoryExit = smoothstep(0, window.innerHeight * 0.7, directoryApproach);
   const detailsTop = profileDetails.getBoundingClientRect().top;
@@ -234,6 +235,8 @@ window.addEventListener('load', () => {
 
 // Keep the large red resume folder still; orbit the work folders around it.
 const visualWorks = document.querySelector('.visual-works');
+const visualCopy = document.querySelector('.visual-works__copy');
+const visualFolderLayer = document.querySelector('.visual-works__folders');
 const centerVisualFolder = document.querySelector('.visual-folder--center');
 const originalVisualFolders = [...document.querySelectorAll('.visual-folder:not(.visual-folder--center)')];
 const repeatedVisualFolders = originalVisualFolders.slice(0, 3).map(folder => {
@@ -283,6 +286,15 @@ function measureVisualOrbit(){
     return {folder, x, y};
   });
   drawVisualOrbit();
+
+  visualFolderLayer.style.setProperty('--visual-folders-shift', '0px');
+  if(window.innerWidth < 1200){
+    const textBottom = visualCopy.lastElementChild.getBoundingClientRect().bottom;
+    const firstFolderTop = Math.min(...[...orbitingVisualFolders, centerVisualFolder]
+      .map(folder => folder.getBoundingClientRect().top));
+    const gap = Math.max(0, firstFolderTop - textBottom);
+    visualFolderLayer.style.setProperty('--visual-folders-shift', `${-gap / 2}px`);
+  }
 }
 
 function drawVisualOrbit(){
@@ -317,6 +329,7 @@ function updateVisualOrbitMotion(){
 }
 
 measureVisualOrbit();
+document.fonts.ready.then(measureVisualOrbit);
 window.addEventListener('resize', measureVisualOrbit, {passive:true});
 reducedOrbitMotion.addEventListener('change', updateVisualOrbitMotion);
 new IntersectionObserver(entries => {

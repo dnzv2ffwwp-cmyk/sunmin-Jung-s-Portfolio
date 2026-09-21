@@ -66,6 +66,8 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   position:absolute;
   z-index:1;
   opacity:var(--decor-opacity,1);
+  transform:rotate(var(--decor-rotation,0deg));
+  transform-origin:center center;
   will-change:opacity,transform;
 }
 
@@ -575,7 +577,7 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   line-height: 1.1;
 }
 
-.visual-works__folders { position: absolute; inset: 0; }
+.visual-works__folders { position: absolute; inset: 0; transform: translateY(var(--visual-folders-shift, 0px)); }
 .visual-works .visual-folder {
   position: absolute;
   flex: none;

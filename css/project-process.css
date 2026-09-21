@@ -21,8 +21,8 @@
 .project-process__intro .project-process__eyebrow { grid-column: 1 / -1; }
 .project-process__intro h3 {
   margin: 20px 0 0;
-  font-family: 'SEBANG Gothic', sans-serif;
-  font-size: clamp(30px, 3.1vw, 56px);
+  font-family: 'Pretandard', sans-serif;
+  font-size: clamp(30px, 3.1vw, 54px);
   line-height: 1.25;
 }
 .project-process__intro p {

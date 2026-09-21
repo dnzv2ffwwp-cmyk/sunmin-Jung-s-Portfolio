@@ -1,4 +1,38 @@
 (() => {
+  function enableAutoplay(root, advance, delay = 4500){
+    let timer = 0;
+    let hovering = false;
+    let focused = false;
+    let pressed = false;
+
+    function stop(){
+      window.clearInterval(timer);
+      timer = 0;
+    }
+
+    function start(){
+      stop();
+      if(!document.hidden && !hovering && !focused && !pressed){
+        timer = window.setInterval(advance, delay);
+      }
+    }
+
+    root.addEventListener('mouseenter', () => { hovering = true; stop(); });
+    root.addEventListener('mouseleave', () => { hovering = false; start(); });
+    root.addEventListener('focusin', () => { focused = true; stop(); });
+    root.addEventListener('focusout', event => {
+      if(!root.contains(event.relatedTarget)){
+        focused = false;
+        start();
+      }
+    });
+    root.addEventListener('pointerdown', () => { pressed = true; stop(); });
+    root.addEventListener('pointerup', () => { pressed = false; start(); });
+    root.addEventListener('pointercancel', () => { pressed = false; start(); });
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    start();
+  }
+
   const carousel = document.querySelector('[data-banner-carousel]');
   if(carousel){
     const track = carousel.querySelector('[data-banner-track]');
@@ -32,6 +66,7 @@
       }
     });
     window.addEventListener('resize', () => showSlide(current), {passive: true});
+    enableAutoplay(carousel, () => showSlide(current + 1));
   }
 
   document.querySelectorAll('[data-work-carousel]').forEach(carousel => {
@@ -40,52 +75,69 @@
     const previous = carousel.querySelector('[data-work-prev]');
     const next = carousel.querySelector('[data-work-next]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mobile = window.matchMedia('(max-width: 760px)');
     let current = 0;
     let scrollTimer = 0;
 
-    function visibleSlides(){
-      return mobile.matches ? 1 : Math.min(3, slides.length);
+    const before = document.createDocumentFragment();
+    const after = document.createDocumentFragment();
+    slides.forEach(slide => {
+      const clone = slide.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      before.appendChild(clone);
+    });
+    slides.forEach(slide => {
+      const clone = slide.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      after.appendChild(clone);
+    });
+    track.insertBefore(before, track.firstChild);
+    track.appendChild(after);
+
+    const items = [...track.querySelectorAll('figure')];
+    const origin = slides.length;
+
+    function itemLeft(index){
+      return items[index].offsetLeft - items[0].offsetLeft;
     }
 
-    function maximumIndex(){
-      return Math.max(0, slides.length - visibleSlides());
-    }
-
-    function updateButtons(){
-      previous.disabled = current <= 0;
-      next.disabled = current >= maximumIndex();
-    }
-
-    function showSlide(index, instant = false){
-      current = Math.max(0, Math.min(maximumIndex(), index));
+    function showOriginal(index, instant = false){
       track.scrollTo({
-        left: slides[current].offsetLeft - slides[0].offsetLeft,
+        left: itemLeft(origin + index),
         behavior: instant || reducedMotion.matches ? 'auto' : 'smooth'
       });
-      updateButtons();
     }
 
-    function updateCurrent(){
-      const step = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
-      current = Math.max(0, Math.min(maximumIndex(), Math.round(track.scrollLeft / step)));
-      updateButtons();
+    function move(direction){
+      const target = origin + current + direction;
+      current = (current + direction + slides.length) % slides.length;
+      track.scrollTo({
+        left: itemLeft(target),
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
     }
 
-    previous.addEventListener('click', () => showSlide(current - 1));
-    next.addEventListener('click', () => showSlide(current + 1));
+    function normalizePosition(){
+      const step = items[1] ? items[1].offsetLeft - items[0].offsetLeft : track.clientWidth;
+      const rawIndex = Math.round(track.scrollLeft / step);
+      current = ((rawIndex - origin) % slides.length + slides.length) % slides.length;
+      if(rawIndex < origin || rawIndex >= origin + slides.length) showOriginal(current, true);
+    }
+
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
     track.addEventListener('scroll', () => {
       window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(updateCurrent, 100);
+      scrollTimer = window.setTimeout(normalizePosition, 140);
     }, {passive: true});
     track.addEventListener('keydown', event => {
       if(event.key === 'ArrowLeft' || event.key === 'ArrowRight'){
         event.preventDefault();
-        showSlide(current + (event.key === 'ArrowRight' ? 1 : -1));
+        move(event.key === 'ArrowRight' ? 1 : -1);
       }
     });
-    window.addEventListener('resize', () => showSlide(current, true), {passive: true});
-    requestAnimationFrame(() => showSlide(0, true));
+    window.addEventListener('resize', () => showOriginal(current, true), {passive: true});
+    requestAnimationFrame(() => showOriginal(0, true));
+    enableAutoplay(carousel, () => move(1));
   });
 
   const detailCarousel = document.querySelector('[data-detail-carousel]');
@@ -168,6 +220,7 @@
     }, true);
     window.addEventListener('resize', () => showCard(current, true), {passive: true});
     requestAnimationFrame(() => showCard(current, true));
+    enableAutoplay(detailCarousel, () => showCard(current + 1));
   }
 
   if (window.location.hash === '#detail-page-title') {

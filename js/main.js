@@ -28,8 +28,13 @@ let hoverFrame = 0;
 const hoverDuration = 500;
 let dragX = 0;
 let dragStartX = 0;
+let dragStartY = 0;
 let dragStartOffset = 0;
 let draggingFolders = false;
+let folderDragCandidate = false;
+let sceneFrame = 0;
+let resizeFrame = 0;
+let lastLayoutWidth = window.innerWidth;
 
 function animateResumeHover(now){
   const progress = clamp((now - hoverStart) / hoverDuration, 0, 1);
@@ -157,8 +162,8 @@ function updateScene(){
   const displayedSheetWidth = mobile
     ? lerp(sheetWidth, finalImageBox.width, mobileHandoff)
     : lerp(sheetWidth, pinnedWidth, pinProgress);
-  resumeSheet.style.left = `${displayedSheetLeft}px`;
-  resumeSheet.style.top = `${displayedSheetTop}px`;
+  resumeSheet.style.setProperty('--resume-sheet-x', `${displayedSheetLeft}px`);
+  resumeSheet.style.setProperty('--resume-sheet-y', `${displayedSheetTop}px`);
   resumeSheet.style.width = `${displayedSheetWidth}px`;
   if(mobile){
     const copyShift = displayedSheetTop + displayedSheetWidth * 1.5
@@ -171,6 +176,14 @@ function updateScene(){
   aboutKicker.style.setProperty('--about-kicker-opacity',
     profileEntrance * (1 - mobileHandoff) * (1 - smoothstep(0, window.innerHeight * 0.7, directoryApproach))
   );
+}
+
+function requestSceneUpdate(){
+  if(sceneFrame) return;
+  sceneFrame = requestAnimationFrame(() => {
+    sceneFrame = 0;
+    updateScene();
+  });
 }
 
 function update(){
@@ -194,21 +207,38 @@ function getDragBounds(){
 
 folders.addEventListener('pointerdown', event => {
   if(event.button !== 0) return;
-  draggingFolders = true;
+  folderDragCandidate = true;
   dragStartX = event.clientX;
+  dragStartY = event.clientY;
   dragStartOffset = dragX;
-  folders.classList.add('is-dragging');
-  folders.setPointerCapture(event.pointerId);
+  if(event.pointerType === 'mouse'){
+    draggingFolders = true;
+    folders.classList.add('is-dragging');
+    folders.setPointerCapture(event.pointerId);
+  }
 });
 folders.addEventListener('pointermove', event => {
-  if(!draggingFolders) return;
+  if(!folderDragCandidate) return;
+  if(!draggingFolders){
+    const deltaX = event.clientX - dragStartX;
+    const deltaY = event.clientY - dragStartY;
+    if(Math.hypot(deltaX, deltaY) < 8) return;
+    if(Math.abs(deltaY) >= Math.abs(deltaX)){
+      folderDragCandidate = false;
+      return;
+    }
+    draggingFolders = true;
+    folders.classList.add('is-dragging');
+    folders.setPointerCapture(event.pointerId);
+  }
   const bounds = getDragBounds();
   const scale = parseFloat(getComputedStyle(stage).getPropertyValue('--stage-scale')) || 1;
   dragX = clamp(dragStartOffset + (event.clientX - dragStartX) / scale, bounds.min, bounds.max);
   folders.style.setProperty('--folders-drag-x', `${dragX}px`);
-  updateScene();
+  requestSceneUpdate();
 });
 const stopFolderDrag = event => {
+  folderDragCandidate = false;
   if(!draggingFolders) return;
   draggingFolders = false;
   folders.classList.remove('is-dragging');
@@ -217,8 +247,17 @@ const stopFolderDrag = event => {
 folders.addEventListener('pointerup', stopFolderDrag);
 folders.addEventListener('pointercancel', stopFolderDrag);
 
-window.addEventListener('resize', update, {passive:true});
-window.addEventListener('scroll', updateScene, {passive:true});
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  if(width <= 760 && Math.abs(width - lastLayoutWidth) < 1) return;
+  lastLayoutWidth = width;
+  if(resizeFrame) return;
+  resizeFrame = requestAnimationFrame(() => {
+    resizeFrame = 0;
+    update();
+  });
+}, {passive:true});
+window.addEventListener('scroll', requestSceneUpdate, {passive:true});
 ['pointerenter','pointerleave','focus','blur'].forEach(type => {
   resumeFolder.addEventListener(type, updateResumeHover);
 });
@@ -248,6 +287,7 @@ const repeatedVisualFolders = originalVisualFolders.slice(0, 3).map(folder => {
 });
 const orbitingVisualFolders = [...originalVisualFolders, ...repeatedVisualFolders];
 const reducedOrbitMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const mobileOrbitMotion = window.matchMedia('(max-width: 760px)');
 const orbitDuration = 120000;
 let orbitVectors = [];
 let orbitPhase = 0;
@@ -308,6 +348,10 @@ function drawVisualOrbit(){
 }
 
 function animateVisualOrbit(now){
+  if(mobileOrbitMotion.matches && orbitLastFrame && now - orbitLastFrame < 1000 / 30){
+    orbitFrame = requestAnimationFrame(animateVisualOrbit);
+    return;
+  }
   if(orbitLastFrame) orbitPhase += (now - orbitLastFrame) * Math.PI * 2 / orbitDuration;
   orbitLastFrame = now;
   drawVisualOrbit();
@@ -330,8 +374,14 @@ function updateVisualOrbitMotion(){
 
 measureVisualOrbit();
 document.fonts.ready.then(measureVisualOrbit);
-window.addEventListener('resize', measureVisualOrbit, {passive:true});
+let lastOrbitWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+  if(Math.abs(window.innerWidth - lastOrbitWidth) < 1) return;
+  lastOrbitWidth = window.innerWidth;
+  requestAnimationFrame(measureVisualOrbit);
+}, {passive:true});
 reducedOrbitMotion.addEventListener('change', updateVisualOrbitMotion);
+mobileOrbitMotion.addEventListener('change', updateVisualOrbitMotion);
 new IntersectionObserver(entries => {
   orbitVisible = entries[0].isIntersecting;
   updateVisualOrbitMotion();
@@ -343,6 +393,10 @@ let melloweeVisible = false;
 
 function measureMelloweePreview(){
   if(!melloweeImage.naturalWidth) return;
+  if(window.innerWidth <= 760){
+    melloweePreview.classList.remove('is-scrolling');
+    return;
+  }
   const travel = Math.max(0, melloweeImage.getBoundingClientRect().height - melloweePreview.clientHeight);
   melloweePreview.style.setProperty('--preview-travel', `${travel}px`);
   if(melloweeVisible && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -352,7 +406,12 @@ function measureMelloweePreview(){
 
 if(melloweeImage.complete) measureMelloweePreview();
 else melloweeImage.addEventListener('load', measureMelloweePreview, {once:true});
-window.addEventListener('resize', measureMelloweePreview, {passive:true});
+let lastPreviewWidth = window.innerWidth;
+window.addEventListener('resize', () => {
+  if(Math.abs(window.innerWidth - lastPreviewWidth) < 1) return;
+  lastPreviewWidth = window.innerWidth;
+  requestAnimationFrame(measureMelloweePreview);
+}, {passive:true});
 new IntersectionObserver(entries => {
   melloweeVisible = entries[0].isIntersecting;
   if(melloweeVisible) measureMelloweePreview();

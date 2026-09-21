@@ -152,6 +152,8 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
 .folder:not(.folder--resume){opacity:var(--other-folders-opacity,1);will-change:opacity}
 .resume-scroll-sheet{
   position:fixed;
+  left:0;
+  top:0;
   z-index:30;
   display:block;
   width:0;
@@ -160,7 +162,8 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   pointer-events:none;
   background:#fff;
   box-shadow:0 5px 16px #0002;
-  will-change:top,left,width,clip-path;
+  transform:translate3d(var(--resume-sheet-x,0),var(--resume-sheet-y,0),0);
+  will-change:transform,width,clip-path;
 }
 .profile-intro{
   position:fixed;
@@ -686,8 +689,6 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
 }
 .project-preview--mellow.is-scrolling img { transform: translateY(calc(0px - var(--preview-travel, 0px))); }
 .project-preview--mobbly { flex: 1; min-height: 0; }
-.project-clip-defs { position: absolute; overflow: hidden; pointer-events: none; }
-
 @media (min-width: 761px) and (max-width: 1199px) {
   .visual-works { height: max(1050px, 136vw); min-height: 0; border-radius: 90px 90px 0 0; }
   .visual-works__copy { padding: 95px 9%; }
@@ -728,6 +729,7 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   .projects__right > p { position: absolute; top: 15%; left: 7%; right: 7%; margin: 0; font-size: clamp(10px, 2.8vw, 13px); line-height: 1.4; text-align: center; }
   .projects__left { position: absolute; top: 53.5%; right: 8%; width: 42%; height: 27%; }
   .project-preview--mellow { min-height: 0; }
+  .project-preview--mellow img { transform: none !important; transition: none; }
   .project-preview--mobbly { position: absolute; top: 31%; left: 8%; width: 42%; height: 30%; flex: none; }
 }
 

@@ -109,6 +109,15 @@
     }
   }
 
+  if(window.location.hash === '#contact'){
+    const contactSection = document.querySelector('#contact');
+    if(contactSection){
+      window.addEventListener('load', () => requestAnimationFrame(() => {
+        window.scrollTo({top: contactSection.getBoundingClientRect().top + window.scrollY, behavior: 'auto'});
+      }), {once:true});
+    }
+  }
+
   window.addEventListener('scroll', updateQuickMenu, {passive:true});
   window.addEventListener('load', updateQuickMenu);
   updateQuickMenu();

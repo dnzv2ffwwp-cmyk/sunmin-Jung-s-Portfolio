@@ -34,7 +34,7 @@
       <a href="./index.html#about">ABOUT ME</a>
       <a href="./visual-works.html">VISUAL WORKS</a>
       <a href="./projects.html" aria-current="page">PROJECTS</a>
-      <a href="./contact.html">CONTACT</a>
+      <a href="./index.html#contact">CONTACT</a>
       <button class="quick-menu__toggle" type="button" aria-expanded="false" aria-controls="quick-menu-panel">
         <span class="quick-menu__hamburger" aria-hidden="true"></span>
         <span class="sr-only">메뉴 열기</span>
@@ -44,7 +44,7 @@
 
   <main>
     <div class="subpage-hero">
-      <span class="subpage-hero__eyebrow">JUNG’S PORTFOLIO / 02</span>
+      <span class="subpage-hero__eyebrow">Responsive Website Portfolio / 02</span>
       <h1>PROJECTS</h1>
       <p>디자인을 실제 웹으로 연결한 프로젝트입니다.</p>
     </div>
@@ -75,9 +75,9 @@
           <div class="project-process__preview-head">
             <div><span class="project-process__eyebrow">LIVE PREVIEW</span><h4>화면 크기별로 보기</h4></div>
             <div class="project-process__devices" role="group" aria-label="멜로위 화면 크기">
-              <button type="button" data-width="1440" data-height="900" aria-pressed="true">PC</button>
-              <button type="button" data-width="768" data-height="900" aria-pressed="false">태블릿</button>
-              <button type="button" data-width="390" data-height="844" aria-pressed="false">모바일</button>
+              <button type="button" data-device="pc" data-width="1440" data-height="900" aria-pressed="true">PC</button>
+              <button type="button" data-device="tablet" data-width="768" data-height="1024" aria-pressed="false">태블릿</button>
+              <button type="button" data-device="mobile" data-width="390" data-height="844" aria-pressed="false">모바일</button>
             </div>
           </div>
           <div class="project-process__stage" data-preview-stage>
@@ -87,7 +87,6 @@
           </div>
           <a class="project-process__open" href="./mellowee/index.html" target="_blank" rel="noopener">멜로위 사이트 크게 보기 ↗</a>
         </div>
-        <p class="project-process__source">구현 근거: <a href="./mellowee/css/styles.css">메인 레이아웃 CSS</a> · <a href="./mellowee/css/header.css">헤더 CSS</a> · <a href="./mellowee/js/script.js">슬라이더 JS</a></p>
       </div>
     </section>
 
@@ -109,9 +108,9 @@
           <div class="project-process__preview-head">
             <div><span class="project-process__eyebrow">LIVE PREVIEW</span><h4>화면 크기별로 보기</h4></div>
             <div class="project-process__devices" role="group" aria-label="모블리 화면 크기">
-              <button type="button" data-width="1440" data-height="900" aria-pressed="true">PC</button>
-              <button type="button" data-width="768" data-height="900" aria-pressed="false">태블릿</button>
-              <button type="button" data-width="390" data-height="844" aria-pressed="false">모바일</button>
+              <button type="button" data-device="pc" data-width="1440" data-height="900" aria-pressed="true">PC</button>
+              <button type="button" data-device="tablet" data-width="768" data-height="1024" aria-pressed="false">태블릿</button>
+              <button type="button" data-device="mobile" data-width="390" data-height="844" aria-pressed="false">모바일</button>
             </div>
           </div>
           <div class="project-process__stage" data-preview-stage>
@@ -121,7 +120,6 @@
           </div>
           <a class="project-process__open" href="./assets/mobbly/index.html" target="_blank" rel="noopener">모블리 사이트 크게 보기 ↗</a>
         </div>
-        <p class="project-process__source">구현 근거: <a href="./assets/mobbly/css/common.css">공통 반응형 CSS</a> · <a href="./assets/mobbly/css/header.css">헤더 CSS</a> · <a href="./assets/mobbly/css/index.css">메인 CSS</a></p>
       </div>
     </section>
   </main>

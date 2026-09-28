@@ -32,6 +32,7 @@ let dragStartY = 0;
 let dragStartOffset = 0;
 let draggingFolders = false;
 let folderDragCandidate = false;
+let folderWasDragged = false;
 let sceneFrame = 0;
 let resizeFrame = 0;
 let lastLayoutWidth = window.innerWidth;
@@ -137,7 +138,7 @@ function updateScene(){
     folder.style.pointerEvents = p >= 0.5 ? 'none' : 'auto';
   });
   stage.style.setProperty('--decor-opacity', 1 - smoothstep(0.12, 0.44, p));
-  stage.style.setProperty('--decor-rotation', `${lerp(0, 360, smoothstep(0, 0.44, p))}deg`);
+  stage.style.setProperty('--decor-rotation', `${lerp(0, 180, smoothstep(0, 0.44, p))}deg`);
   const directoryApproach = window.innerHeight - sectionDirectory.getBoundingClientRect().top;
   const directoryExit = smoothstep(0, window.innerHeight * 0.7, directoryApproach);
   const detailsTop = profileDetails.getBoundingClientRect().top;
@@ -233,17 +234,14 @@ function getDragBounds(){
 folders.addEventListener('pointerdown', event => {
   if(event.button !== 0) return;
   folderDragCandidate = true;
+  folderWasDragged = false;
   dragStartX = event.clientX;
   dragStartY = event.clientY;
   dragStartOffset = dragX;
-  if(event.pointerType === 'mouse'){
-    draggingFolders = true;
-    folders.classList.add('is-dragging');
-    folders.setPointerCapture(event.pointerId);
-  }
 });
 folders.addEventListener('pointermove', event => {
   if(!folderDragCandidate) return;
+  if(Math.hypot(event.clientX - dragStartX, event.clientY - dragStartY) >= 8) folderWasDragged = true;
   if(!draggingFolders){
     const deltaX = event.clientX - dragStartX;
     const deltaY = event.clientY - dragStartY;
@@ -271,6 +269,12 @@ const stopFolderDrag = event => {
 };
 folders.addEventListener('pointerup', stopFolderDrag);
 folders.addEventListener('pointercancel', stopFolderDrag);
+folders.addEventListener('click', event => {
+  if(!folderWasDragged) return;
+  event.preventDefault();
+  event.stopPropagation();
+  folderWasDragged = false;
+}, true);
 
 window.addEventListener('resize', () => {
   const width = window.innerWidth;

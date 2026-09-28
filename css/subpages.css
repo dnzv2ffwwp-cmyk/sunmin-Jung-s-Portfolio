@@ -50,15 +50,20 @@ img { display: block; max-width: 100%; }
   border: 1px solid currentColor;
   border-radius: 999px;
   font-family: 'Pretendard', sans-serif;
-  font-size: clamp(13px, 1.2vw, 18px);
+  font-size: clamp(13px, 1.2vw, 14px);
   text-decoration: none;
+}
+.project-detail__heading span,
+.project-process__facts strong,
+.project-process__intro .project-process__eyebrow{
+    color: #568af5;
 }
 .category-nav a:hover,
 .category-nav a:focus-visible { background: var(--page-ink); color: #fff; outline: none; }
 
 .work-category,
 .project-detail { padding: clamp(65px, 8vw, 120px) var(--page-gutter); }
-.work-category,
+.work-category { scroll-margin-top: 0; }
 .project-detail { scroll-margin-top: 72px; }
 #detail-page-title { scroll-margin-top: 100px; }
 .work-category__heading,
@@ -106,10 +111,14 @@ img { display: block; max-width: 100%; }
 .work-grid--banner { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; scrollbar-width: none; }
 .work-grid--banner::-webkit-scrollbar { display: none; }
 .work-grid--banner figure { flex: 0 0 100%; scroll-snap-align: start; }
-.work-grid--banner img { aspect-ratio: 1200 / 513; object-fit: contain; }
+.work-grid--banner img { aspect-ratio: 1920 / 970; object-fit: contain; }
 .work-grid figure { min-width: 0; margin: 0; }
 .work-grid img { width: 100%; height: auto; background: #fff; }
 .work-grid figcaption { padding-top: 12px; font-size: clamp(12px, 1.1vw, 16px); }
+.work-grid figcaption strong,
+.work-grid figcaption span { display: block; }
+.work-grid figcaption strong { font-size: 1.05em; }
+.work-grid figcaption span { max-width: 62ch; margin-top: 6px; color: #4d4d4d; line-height: 1.55; }
 .detail-carousel { display: grid; grid-template-columns: clamp(36px, 4.5vw, 58px) minmax(0, 1fr) clamp(36px, 4.5vw, 58px); align-items: center; gap: clamp(8px, 1.5vw, 24px); }
 .detail-carousel__arrow { display: grid; place-items: center; width: clamp(36px, 4.5vw, 52px); height: clamp(36px, 4.5vw, 52px); padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
 .detail-carousel__arrow:hover,

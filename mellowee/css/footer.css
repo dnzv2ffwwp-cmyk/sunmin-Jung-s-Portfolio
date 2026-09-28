@@ -16,7 +16,8 @@
   gap: 2rem;
   padding: 0 3rem;
 }
-.footer-main.page-shell.fwidth-shell {
+.footer-main.page-shell.fwidth-shell,
+.payment.page-shell.fwidth-shell {
   width: min(100%, 120rem);
   margin-inline: auto;
 }

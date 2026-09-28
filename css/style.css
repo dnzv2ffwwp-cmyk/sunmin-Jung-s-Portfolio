@@ -728,11 +728,11 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   .visual-works .visual-folder--green { right: -5%; top: 58%; width: 25%; }
   .visual-works .visual-folder--center { left: 23%; top: 66%; bottom: auto; width: 54%; }
   .projects { position: relative; display: block; height: max(566px, 140vw); padding: 0; }
-  .projects__right { display: contents; }
-  .projects__heading { position: absolute; top: 7%; left: 12%; right: 12%; justify-content: center; gap: 12px; }
+  .projects__right { display: block; padding-top: max(40px, 9.8vw); }
+  .projects__heading { position: static; margin: 0 12%; justify-content: center; gap: 12px; }
   .projects__heading h2 { font-size: clamp(35px, 9vw, 45px); }
   .projects__heading img { width: 38px; }
-  .projects__right > p { position: absolute; top: 15%; left: 7%; right: 7%; margin: 0; font-size: clamp(10px, 2.8vw, 13px); line-height: 1.4; text-align: center; }
+  .projects__right > p { position: static; margin: 18px 8% 0; font-size: clamp(10px, 2.8vw, 13px); line-height: 1.4; text-align: center; }
   .projects__left { position: absolute; top: 53.5%; right: 8%; width: 42%; height: 27%; }
   .project-preview--mellow { min-height: 0; }
   .project-preview--mellow img { transform: none !important; transition: none; }

@@ -99,7 +99,7 @@ if (footerRoot) {
         </div>
       </div>
     </div>
-    <div class="payment page-shell">
+    <div class="payment page-shell fwidth-shell">
       <p>payments 구매안전서비스</p>
       <p>고객님께서는 안전거래를 위해 결제 시 구매안전 서비스를 이용하실 수 있습니다.</p>
       <a href="#payment-check" class="bold-line">가입 사실 확인하기</a>
@@ -168,3 +168,16 @@ if (footerRoot) {
     <div class="copyright">© 2026 MELLOWY. ALL RIGHTS RESERVED.</div>
   </footer>`;
 }
+
+const backToTopButton = document.createElement("button");
+backToTopButton.type = "button";
+backToTopButton.className = "back-to-top";
+backToTopButton.setAttribute("aria-label", "맨 위로 이동");
+backToTopButton.innerHTML = '<img src="./img/icon/icon-top.svg" alt="" width="48" height="48" />';
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+  });
+});
+document.body.append(backToTopButton);

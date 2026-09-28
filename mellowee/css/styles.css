@@ -39,6 +39,39 @@ button {
   color: inherit;
 }
 
+.back-to-top {
+  position: fixed;
+  right: max(2rem, env(safe-area-inset-right));
+  bottom: max(2rem, env(safe-area-inset-bottom));
+  z-index: 100;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+.back-to-top img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--mellowee-primary-500, #a1b889);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .back-to-top {
+    right: max(1.5rem, env(safe-area-inset-right));
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
 .page-shell {
   width: min(100%, 120rem);
   margin-inline: auto;
@@ -46,8 +79,6 @@ button {
 
 .hero {
   position: relative;
-  height: min(41.6667vw, 50rem);
-  min-height: 30.75rem;
   overflow: hidden;
 }
 
@@ -60,14 +91,19 @@ button {
 }
 
 .hero-slide.is-active {
+  position: relative;
   opacity: 1;
   visibility: visible;
 }
 
-.hero-slide > img {
+.hero-slide > picture {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+}
+
+.hero-slide > picture > img {
+  width: 100%;
+  height: auto;
 }
 
 .hero-copy {
@@ -126,7 +162,6 @@ button {
   font-size: var(--fs-body2);
   font-weight: var(--fw-bold);
   transition: transform 0.2s ease, background-color 0.2s ease;
-  border: 1px solid red;
   width: 40%;
 }
 
@@ -458,7 +493,9 @@ button {
   .hero-copy {
     left: 6vw;
   }
-
+   .section {
+    padding: 3rem 1.5rem;
+  }
   .new-items,
   .lookbook {
     gap: 3rem;
@@ -468,6 +505,8 @@ button {
     height: 31.25rem;
   }
 
+ 
+
   .story-copy {
     padding-right: 3rem;
     padding-left: 7vw;
@@ -476,11 +515,6 @@ button {
 
 /* Pad: 64rem (1024px) 이하 */
 @media (max-width: 64rem) {
-  .hero {
-    height: 38.75rem;
-    min-height: 38.75rem;
-  }
-
   .hero-copy {
     left: 4vw;
     width: min(58vw, 26.25rem);
@@ -489,11 +523,15 @@ button {
   .hero-copy .eyebrow {
     font-size: var(--fs-h2);
   }
-
-  .section {
-    padding: 4.5rem 1.5rem;
+    
+  .section-intro {
+    align-items: center;
+    margin-bottom: 1rem;
   }
-
+  .section-intro > p:not(.section-kicker) {
+    margin: 0.5rem;
+  }
+  .section-intro>p>br {display: none;}
   .new-items,
   .lookbook {
     grid-template-columns: 1fr;
@@ -523,6 +561,11 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .story-image {
+  z-index: 2;
+  border-radius: 5rem 5rem 0 0;
+}
+
   .story-copy {
     min-height: 0;
     padding: 1.875rem 1.5rem;
@@ -531,6 +574,9 @@ button {
   .story-copy h2 {
     font-size: var(--fs-h2);
   }
+  .pill-button {
+    width: 100%;
+  } 
 }
 
 /* Mobile: 25.125rem (402px) 이하 */
@@ -543,15 +589,6 @@ button {
 
 /* Mobile: 42.5rem (680px) 이하 */
 @media (max-width: 42.5rem) {
-  .hero {
-    height: 32.5rem;
-    min-height: 32.5rem;
-  }
-
-  .hero-slide > img {
-    object-position: center;
-  }
-
   .hero-copy {
     left: 1.125rem;
     right: 1.125rem;
@@ -585,7 +622,7 @@ button {
   }
 
   .section {
-    padding: 3.625rem 1.25rem;
+    padding: 2rem 1.25rem;
   }
 
   .section-title,
@@ -594,15 +631,18 @@ button {
   }
 
   .section-intro > p:not(.section-kicker) {
-    margin: 1.5rem 0 2rem;
+    margin: 0.5rem 0 ;
     font-size: var(--fs-body1);
   }
-
+  .product-info {
+    padding: 1rem 0 0 0;
+  }
+  .section-intro > p:not(.section-kicker) {
+  }
   .instagram-grid,
   .footer-links {
     grid-template-columns: 1fr;
   }
-
   .instagram-swiper {
     overflow: hidden;
   }
@@ -630,7 +670,7 @@ button {
   }
 
   .story-copy h2 {
-    font-size: var(--fs-h4);
+    font-size: var(--fs-h2);
   }
 
   .lookbook {

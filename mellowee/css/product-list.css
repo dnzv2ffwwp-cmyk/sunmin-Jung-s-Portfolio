@@ -268,23 +268,40 @@
 }
 
 @media (max-width: 767px) {
-  .catalog-hero { padding: 64px 18px 38px; }
-  .category-pills { margin-top: 34px; gap: 8px; }
-  .category-pills button { min-width: 70px; height: 32px; padding: 0 12px; }
-  .catalog-section { padding: 0 16px 80px; }
+  .catalog-hero {
+    padding: 0;
+  }
+  .category-pills {
+    margin: 3rem 0 0;
+  }
+  .best-heading {
+    margin: 3rem 0;
+    text-align: center;
+}
+  /* .catalog-hero { padding: 64px 18px 38px; }
+  .category-pills { margin-top: 34px; gap: 8px; } */
+  /* .category-pills button { min-width: 70px; height: 32px; padding: 0 12px; }
+  .catalog-section { padding: 0 16px 80px; } */
   .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 34px 10px; }
-  .catalog-grid--best { margin-bottom: 60px; }
-  .catalog-card h3 { font-size: 13px; }
+  /* .catalog-grid--best { margin-bottom: 60px; } */
+  /* .catalog-card h3 { font-size: 13px; } */
   .catalog-card__price { display: block; }
   .catalog-card__price del { display: block; }
-  .catalog-card--best .catalog-card__rank {
+  /* .catalog-card--best .catalog-card__rank {
     top: 12px;
     left: 12px;
-  }
-  .catalog-card--best h3 {
+  } */
+  /* .catalog-card--best h3 {
     padding: 12px 12px 8px;
   }
   .catalog-card--best .catalog-card__price {
     padding: 12px;
+  } */
+}
+
+@media (max-width: 402px) {
+  .subpage-main section {
+    padding: 0 2rem;
   }
+
 }

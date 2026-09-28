@@ -64,7 +64,22 @@
   });
   quickMenu.addEventListener('focusin', clearHideTimer);
   quickMenu.addEventListener('focusout', () => requestAnimationFrame(scheduleHide));
-  quickMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenuOpen(false)));
+  document.querySelectorAll('.quick-menu a[href^="#"]:not([href="#about"]), .section-directory a[href^="#"]:not([href="#about"])').forEach(link => {
+    link.addEventListener('click', event => {
+      const hash = link.getAttribute('href');
+      const target = document.querySelector(hash);
+      if(!target) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      setMenuOpen(false);
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+      if(window.location.hash !== hash) window.history.pushState(null, '', hash);
+    });
+  });
   document.addEventListener('pointerdown', event => {
     if(quickMenu.classList.contains('is-open') && !quickMenu.contains(event.target)) setMenuOpen(false);
   });

@@ -6,7 +6,7 @@ const logoMarkup = `
     <span>M</span><span>E</span><span>L</span><span>L</span><span>O</span><span>W</span><span>E</span><span>E</span>
   </span>`;
 
-const headerLogoMarkup = '<img src="./img/icon/icon_logo_pc.svg" alt="MELLOWEE" />';
+const headerLogoMarkup = '<img src="./img/logo/logo-main.svg" alt="MELLOWEE" />';
 
 const icon = (name) => {
   const icons = {

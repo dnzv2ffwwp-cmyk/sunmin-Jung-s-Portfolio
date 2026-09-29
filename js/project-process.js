@@ -60,3 +60,105 @@ document.querySelectorAll('[data-preview]').forEach(preview => {
   window.addEventListener('resize', () => syncPreviewToViewport(), { passive: true });
   syncPreviewToViewport(true);
 });
+
+document.querySelectorAll('[data-device-showcase]').forEach(showcase => {
+  const screens = [...showcase.querySelectorAll('.mellowee-case__screen')];
+  const mobileQuery = window.matchMedia('(max-width: 600px)');
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 0;
+  let intervalId = 0;
+  let isVisible = false;
+  let pointerId = null;
+  let pointerStartX = 0;
+  let pointerStartY = 0;
+  let isDragging = false;
+
+  function stopRotation() {
+    if (!intervalId) return;
+    window.clearInterval(intervalId);
+    intervalId = 0;
+  }
+
+  function showScreen(index, restart = false) {
+    activeIndex = (index + screens.length) % screens.length;
+    screens.forEach((screen, screenIndex) => {
+      const isActive = screenIndex === activeIndex;
+      screen.classList.toggle('is-active', isActive);
+      screen.setAttribute('aria-hidden', String(mobileQuery.matches && !isActive));
+    });
+
+    if (restart) {
+      const activeScreen = screens[activeIndex];
+      activeScreen.classList.remove('is-active');
+      void activeScreen.offsetWidth;
+      activeScreen.classList.add('is-active');
+    }
+  }
+
+  function startRotation() {
+    stopRotation();
+    if (!mobileQuery.matches || reducedMotionQuery.matches || !isVisible) return;
+    intervalId = window.setInterval(() => showScreen(activeIndex + 1), 18000);
+  }
+
+  function syncShowcase(restart = false) {
+    if (mobileQuery.matches) {
+      showScreen(activeIndex, restart);
+    } else {
+      screens.forEach(screen => screen.setAttribute('aria-hidden', 'false'));
+    }
+    startRotation();
+  }
+
+  function finishDrag(event, cancelled = false) {
+    if (event.pointerId !== pointerId) return;
+    const distanceX = event.clientX - pointerStartX;
+    const distanceY = event.clientY - pointerStartY;
+    const shouldMove = !cancelled && isDragging && Math.abs(distanceX) >= 45 && Math.abs(distanceX) > Math.abs(distanceY);
+
+    if (shouldMove) showScreen(activeIndex + (distanceX < 0 ? 1 : -1));
+    showcase.classList.remove('is-dragging');
+    pointerId = null;
+    isDragging = false;
+    startRotation();
+  }
+
+  showcase.addEventListener('pointerdown', event => {
+    if (!mobileQuery.matches || event.button !== 0) return;
+    pointerId = event.pointerId;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+    isDragging = false;
+    stopRotation();
+    showcase.setPointerCapture?.(event.pointerId);
+  });
+
+  showcase.addEventListener('pointermove', event => {
+    if (event.pointerId !== pointerId) return;
+    const distanceX = event.clientX - pointerStartX;
+    const distanceY = event.clientY - pointerStartY;
+    if (Math.abs(distanceX) > 10 && Math.abs(distanceX) > Math.abs(distanceY)) {
+      isDragging = true;
+      showcase.classList.add('is-dragging');
+    }
+  });
+
+  showcase.addEventListener('pointerup', event => finishDrag(event));
+  showcase.addEventListener('pointercancel', event => finishDrag(event, true));
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      isVisible = entries[0].isIntersecting;
+      showcase.classList.toggle('is-in-view', isVisible);
+      if (isVisible && mobileQuery.matches) showScreen(activeIndex, true);
+      startRotation();
+    }, { threshold: 0.2 }).observe(showcase);
+  } else {
+    isVisible = true;
+    showcase.classList.add('is-in-view');
+  }
+
+  mobileQuery.addEventListener('change', () => syncShowcase(true));
+  reducedMotionQuery.addEventListener('change', () => syncShowcase(true));
+  syncShowcase(true);
+});

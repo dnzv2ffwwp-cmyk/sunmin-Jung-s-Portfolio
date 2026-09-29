@@ -514,7 +514,7 @@ html {
 
   @font-face {
     font-family: "Mabook";
-    src: url("../fonts/Mabook.ttf") format("truetype");
+    src: url("../font/Mabook.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;

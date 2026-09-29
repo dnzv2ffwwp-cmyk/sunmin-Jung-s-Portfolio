@@ -379,7 +379,10 @@
   flex: 0 0 auto;
   margin: 1.25rem 1.5rem 1.5rem;
   color: var(--mellowee-primary-800, #5e704b);
-  font: italic 1rem Georgia, serif;
+  font-family: var(--font-point, "Mabook"), cursive;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
 }
 
 .header-menu-overlay button:hover,

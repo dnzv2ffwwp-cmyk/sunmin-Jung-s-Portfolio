@@ -30,10 +30,11 @@
   width: 100%;
   margin: 0 auto;
   padding: 0 3rem;
+  padding-bottom: 1rem;
 }
 
 .best-heading {
-  margin-bottom: 6rem;
+  margin: clamp(4rem, 7vw, 7rem) 0 4rem;
   text-align: center;
 }
 
@@ -63,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6rem 0 1rem;
+  padding: 2rem 0 1rem;
   margin-bottom: 3rem;
   border-bottom: 1px solid var(--mellowee-black-200);
   color: var(--mellowee-black-600);

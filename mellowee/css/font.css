@@ -63,8 +63,10 @@
 
 @font-face {
     font-family: "Mabook";
-    src: url("../font/Mabook.ttf");
-    font-weight: 100;
+    src: url("../font/Mabook.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
 }
 
 @font-face {

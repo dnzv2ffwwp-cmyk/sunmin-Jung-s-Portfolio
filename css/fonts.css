@@ -19,3 +19,11 @@
   font-weight: 100 900;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Mabook";
+  src: url("../mellowee/font/Mabook.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}

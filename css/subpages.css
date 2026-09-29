@@ -29,6 +29,14 @@ img { display: block; max-width: 100%; }
   line-height: .92;
 }
 .subpage-hero p { margin: 0; font-size: clamp(17px, 2vw, 30px); line-height: 1.45; }
+.subpage--projects .subpage-hero__project-copy {
+  width: fit-content;
+  max-width: 100%;
+}
+.subpage--projects .subpage-hero__project-copy p {
+  width: 0;
+  min-width: 100%;
+}
 .subpage-hero--works .subpage-hero__layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); align-items: start; gap: clamp(30px, 6vw, 110px); }
 .subpage-hero--works h1 { margin-bottom: 0; }
 .subpage-hero__copy { padding-top: 0; }
@@ -129,7 +137,16 @@ img { display: block; max-width: 100%; }
 .detail-card { flex: 0 0 var(--detail-card-width); min-width: 0; scroll-snap-align: center; text-decoration: none; }
 .detail-card img { user-select: none; -webkit-user-drag: none; }
 .detail-card__media { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: #ece9e2; }
-.detail-card__media > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.detail-card__media > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 .detail-card__overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: .04em; background: rgb(0 0 0 / 62%); color: #fff; font-family: 'Pretendard', sans-serif; font-size: clamp(20px, 1.7vw, 28px); font-weight: 600; opacity: 0; transition: opacity .18s ease; }
 .detail-card__overlay img { width: 1.35em; height: 1.25em; margin-inline: -.2em; filter: invert(1); }
 .detail-card:hover .detail-card__overlay,
@@ -181,6 +198,7 @@ img { display: block; max-width: 100%; }
 @media (max-width: 760px) {
   .subpage-hero { padding-block: 80px 65px; }
   .subpage-hero h1 { font-size: clamp(55px, 15vw, 90px); }
+  .subpage--projects .subpage-hero__project-copy h1 { font-size: clamp(46px, 15vw, 90px); }
   .subpage-hero--works .subpage-hero__layout { display: block; }
   .subpage-hero__copy { padding-top: 28px; }
   .subpage-hero__copy strong { margin-bottom: 15px; font-size: 17px; }

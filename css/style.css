@@ -212,7 +212,7 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
     display: grid;
     grid-template-columns: repeat(2,1fr);
 }
-.profile-details dt{margin-top:13px;font-weight:700}
+.profile-details dt{gap: 1rem; font-weight:700}
 .profile-details dd {
     margin: 0;
     font-family: initial;
@@ -674,7 +674,9 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
   font-weight: 700;
   line-height: .95;
 }
-.projects__heading img { display: block; flex: none; width: clamp(80px, 8vw, 150px); height: auto; }
+.projects__heading img { display: block; flex: none; width: clamp(80px, 8vw, 150px); height: auto; transition: transform .25s ease; }
+.projects__heading:hover img,
+.projects__heading:focus-visible img { transform: translate(8px, -8px); }
 .projects__right > p {
   margin: 30px 0 30px;
   font-family: "Pretendard", sans-serif;
@@ -741,6 +743,9 @@ body{overflow-x:hidden;font-family:"SEBANG Gothic",sans-serif;font-weight:400}
 
 @media (prefers-reduced-motion: reduce) {
   .portfolio-marquee__track { animation: none; }
+  .projects__heading img { transition: none; }
+  .projects__heading:hover img,
+  .projects__heading:focus-visible img { transform: none; }
   .project-preview--mellow { overflow-y: auto; }
   .project-preview--mellow img { transition: none; }
 }

@@ -416,32 +416,44 @@ new IntersectionObserver(entries => {
   updateVisualOrbitMotion();
 }).observe(visualWorks);
 
-const melloweePreview = document.querySelector('.project-preview--mellow');
-const melloweeImage = melloweePreview.querySelector('img');
-let melloweeVisible = false;
+const projectsSection = document.querySelector('.projects');
+const projectRevealItems = [
+  document.querySelector('.project-mockup--mobbly-home'),
+  document.querySelector('.project-mockup--tablet'),
+  document.querySelector('.project-mockup--mobile'),
+  document.querySelector('.project-mockup--mellowee')
+].filter(Boolean);
+const projectRevealThresholds = [0.06, 0.2, 0.34, 0.48];
+let projectRevealFrame = 0;
 
-function measureMelloweePreview(){
-  if(!melloweeImage.naturalWidth) return;
-  if(window.innerWidth <= 760){
-    melloweePreview.classList.remove('is-scrolling');
-    return;
-  }
-  const travel = Math.max(0, melloweeImage.getBoundingClientRect().height - melloweePreview.clientHeight);
-  melloweePreview.style.setProperty('--preview-travel', `${travel}px`);
-  if(melloweeVisible && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    requestAnimationFrame(() => melloweePreview.classList.add('is-scrolling'));
-  }
+function updateProjectReveal(){
+  projectRevealFrame = 0;
+  if(!projectsSection || !projectRevealItems.length) return;
+
+  const rect = projectsSection.getBoundingClientRect();
+  const progress = clamp(
+    (window.innerHeight - rect.top) / (rect.height + window.innerHeight),
+    0,
+    1
+  );
+
+  projectRevealItems.forEach((item, index) => {
+    if(progress >= projectRevealThresholds[index]) item.classList.add('is-visible');
+  });
 }
 
-if(melloweeImage.complete) measureMelloweePreview();
-else melloweeImage.addEventListener('load', measureMelloweePreview, {once:true});
-let lastPreviewWidth = window.innerWidth;
-window.addEventListener('resize', () => {
-  if(Math.abs(window.innerWidth - lastPreviewWidth) < 1) return;
-  lastPreviewWidth = window.innerWidth;
-  requestAnimationFrame(measureMelloweePreview);
-}, {passive:true});
-new IntersectionObserver(entries => {
-  melloweeVisible = entries[0].isIntersecting;
-  if(melloweeVisible) measureMelloweePreview();
-}, {threshold:0.2}).observe(melloweePreview);
+function requestProjectReveal(){
+  if(projectRevealFrame) return;
+  projectRevealFrame = requestAnimationFrame(updateProjectReveal);
+}
+
+if(projectsSection && projectRevealItems.length){
+  projectsSection.classList.add('is-reveal-ready');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    projectRevealItems.forEach(item => item.classList.add('is-visible'));
+  }else{
+    window.addEventListener('scroll', requestProjectReveal, {passive:true});
+    window.addEventListener('resize', requestProjectReveal, {passive:true});
+    requestProjectReveal();
+  }
+}

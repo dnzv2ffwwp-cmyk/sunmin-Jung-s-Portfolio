@@ -417,18 +417,46 @@ new IntersectionObserver(entries => {
 }).observe(visualWorks);
 
 const projectsSection = document.querySelector('.projects');
-const projectRevealItems = [
-  document.querySelector('.project-mockup--mobbly-home'),
-  document.querySelector('.project-mockup--tablet'),
-  document.querySelector('.project-mockup--mobile'),
-  document.querySelector('.project-mockup--mellowee')
-].filter(Boolean);
+const projectRevealItems = {
+  laptop: document.querySelector('.project-mockup--mellowee'),
+  topTablet: document.querySelector('.project-mockup--mobbly-home'),
+  bottomTablet: document.querySelector('.project-mockup--tablet'),
+  phone: document.querySelector('.project-mockup--mobile')
+};
+const projectRevealAllItems = Object.values(projectRevealItems).filter(Boolean);
+const projectLargeScreen = window.matchMedia('(min-width: 1200px)');
+const projectMobileScreen = window.matchMedia('(max-width: 760px)');
 const projectRevealThresholds = [0.06, 0.2, 0.34, 0.48];
+const projectMobileRevealThresholds = [0.06, 0.24, 0.42];
 let projectRevealFrame = 0;
+
+function getProjectRevealOrder(){
+  if(projectLargeScreen.matches){
+    return [
+      projectRevealItems.laptop,
+      projectRevealItems.topTablet,
+      projectRevealItems.bottomTablet,
+      projectRevealItems.phone
+    ].filter(Boolean);
+  }
+  if(projectMobileScreen.matches){
+    return [
+      projectRevealItems.bottomTablet,
+      projectRevealItems.phone,
+      projectRevealItems.laptop
+    ].filter(Boolean);
+  }
+  return [
+    projectRevealItems.topTablet,
+    projectRevealItems.bottomTablet,
+    projectRevealItems.phone,
+    projectRevealItems.laptop
+  ].filter(Boolean);
+}
 
 function updateProjectReveal(){
   projectRevealFrame = 0;
-  if(!projectsSection || !projectRevealItems.length) return;
+  if(!projectsSection || !projectRevealAllItems.length) return;
 
   const rect = projectsSection.getBoundingClientRect();
   const progress = clamp(
@@ -437,8 +465,16 @@ function updateProjectReveal(){
     1
   );
 
-  projectRevealItems.forEach((item, index) => {
-    if(progress >= projectRevealThresholds[index]) item.classList.add('is-visible');
+  const thresholds = projectMobileScreen.matches
+    ? projectMobileRevealThresholds
+    : projectRevealThresholds;
+
+  getProjectRevealOrder().forEach((item, index) => {
+    const shouldShow = progress >= thresholds[index];
+    if(projectLargeScreen.matches || projectMobileScreen.matches){
+      item.classList.toggle('is-visible', shouldShow);
+    }
+    else if(shouldShow) item.classList.add('is-visible');
   });
 }
 
@@ -447,13 +483,19 @@ function requestProjectReveal(){
   projectRevealFrame = requestAnimationFrame(updateProjectReveal);
 }
 
-if(projectsSection && projectRevealItems.length){
+if(projectsSection && projectRevealAllItems.length){
   projectsSection.classList.add('is-reveal-ready');
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    projectRevealItems.forEach(item => item.classList.add('is-visible'));
+    projectRevealAllItems.forEach(item => item.classList.add('is-visible'));
   }else{
     window.addEventListener('scroll', requestProjectReveal, {passive:true});
     window.addEventListener('resize', requestProjectReveal, {passive:true});
+    const resetProjectReveal = () => {
+      projectRevealAllItems.forEach(item => item.classList.remove('is-visible'));
+      requestProjectReveal();
+    };
+    projectLargeScreen.addEventListener('change', resetProjectReveal);
+    projectMobileScreen.addEventListener('change', resetProjectReveal);
     requestProjectReveal();
   }
 }

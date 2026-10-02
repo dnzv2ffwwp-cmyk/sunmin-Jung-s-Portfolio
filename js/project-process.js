@@ -162,3 +162,24 @@ document.querySelectorAll('[data-device-showcase]').forEach(showcase => {
   reducedMotionQuery.addEventListener('change', () => syncShowcase(true));
   syncShowcase(true);
 });
+
+document.querySelectorAll('.mellowee-case').forEach(caseStudy => {
+  const sections = [...caseStudy.querySelectorAll('[data-mellowee-reveal]')];
+  if (!sections.length) return;
+
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    sections.forEach(section => section.classList.add('is-visible'));
+    return;
+  }
+
+  caseStudy.classList.add('is-reveal-ready');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+});

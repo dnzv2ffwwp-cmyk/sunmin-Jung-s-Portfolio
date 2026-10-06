@@ -1,99 +1,14 @@
-let newProductArray = [
-    {
-        pid: 6,
-        pname: '루아 원목 다이닝 테이블',
-        pdesc: `내추럴한 오크 소재와 부드러운 곡선으로 완성한 따뜻한 다이닝 테이블`,
-        price:890000,
-        pdiscount:0,
-        pthumbFileName:'new1.jpg'
-    },
-    {
-        pid: 7,
-        pname: '모노 패브릭 소파 3인',
-        pdesc: `담백한 실루엣과 포근한 패브릭이 어우러진 편안한 데일리 소파`,
-        price:1590000,
-        pdiscount:0.2,
-        pthumbFileName:'new2.jpg'
-    },
-    {
-        pid: 8,
-        pname: '오브 사이드 테이블',
-        pdesc: `작은 공간에도 자연스럽게 어우러지는 미니멀한 원형 사이드 테이블`,
-        price:320000,
-        pdiscount:0,
-        pthumbFileName:'new3.jpg'
-    },
-    {
-        pid: 9,
-        pname: '리브 원목 체어',
-        pdesc: `견고한 원목 프레임과 곡선형 등받이로 편안함을 더한 다이닝 체어`,
-        price:390000,
-        pdiscount:0,
-        pthumbFileName:'new4.jpg'
-    },
-    {
-        pid: 10,
-        pname: '아르코 플로어 램프',
-        pdesc: `은은하게 퍼지는 빛과 슬림한 아치형 디자인이 돋보이는 플로어 램프`,
-        price:450000,
-        pdiscount:0,
-        pthumbFileName:'new5.jpg'
-    },
-    {
-        pid: 11,
-        pname: '베르 낮은 수납장',
-        pdesc: `깔끔한 비율과 넉넉한 수납공간으로 거실을 정돈해주는 로우 캐비닛`,
-        price:980000,
-        pdiscount:0,
-        pthumbFileName:'new6.jpg'
-    },
-    {
-        pid: 12,
-        pname: '누아 라운지 체어',
-        pdesc: `깊이감 있는 좌석과 부드러운 패브릭으로 휴식의 순간을 완성하는 라운지 체어`,
-        price:760000,
-        pdiscount:0.15,
-        pthumbFileName:'new7.jpg'
-    },
-    {
-        pid: 13,
-        pname: '오트 침실 협탁',
-        pdesc: `침실에 차분한 분위기를 더해주는 컴팩트한 사이즈의 우드 베드사이드 테이블`,
-        price:290000,
-        pdiscount:0,
-        pthumbFileName:'new8.jpg'
-    },
-    {
-        pid: 14,
-        pname: '셀린 4단 서랍장',
-        pdesc: `군더더기 없는 디자인과 넉넉한 수납으로 공간을 깔끔하게 정리하는 서랍장`,
-        price:1120000,
-        pdiscount:0,
-        pthumbFileName:'new9.jpg'
-    },
-    {
-        pid: 15,
-        pname: '엘로우 벤치 소파',
-        pdesc: `낮고 부드러운 실루엣에 편안한 쿠션감을 더한 모던 벤치형 소파`,
-        price:690000,
-        pdiscount:0.15,
-        pthumbFileName:'new10.jpg'
-    },
-    {
-        pid: 16,
-        pname: '마레 라운드 거울',
-        pdesc: `자연스러운 곡선과 은은한 프레임으로 공간을 한층 넓어 보이게 연출하는 거울`,
-        price:280000,
-        pdiscount:0,
-        pthumbFileName:'new11.jpg'
-    },
-    {
-        pid: 17,
-        pname: '플로우 원목 책상',
-        pdesc: `집중이 필요한 순간을 위한 넓은 상판과 따뜻한 원목 감성의 데스크`,
-        price:740000,
-        pdiscount:0.2,
-        pthumbFileName:'new12.jpg'
-    },
-    
-]
+const newProductArray = [
+    { pid: 1, pname: '루미 클라우드 데이베드 SS', pdesc: '구름형 헤드보드와 낮은 프레임, 라운드 안전가드를 적용한 슈퍼싱글 데이베드', price: 649000, pthumbFileName: '01_MOBBLY_루미_클라우드_데이베드_SS.png' },
+    { pid: 2, pname: '토토 라운드 키즈 책상', pdesc: '수납 선반과 서랍, 케이블 홀을 갖춘 어린이용 라운드 책상', price: 289000, pthumbFileName: '02_MOBBLY_토토_라운드_키즈_책상.png' },
+    { pid: 3, pname: '코지핏 높이조절 키즈 체어', pdesc: '성장 단계에 따라 좌판 높이를 변경할 수 있는 패브릭 우드 체어', price: 189000, pthumbFileName: '03_MOBBLY_코지핏_높이조절_키즈_체어.png' },
+    { pid: 4, pname: '마루 슬라이드 북케이스', pdesc: '책 표지가 잘 보이는 전면형 3단 책장과 하단 수납 바스켓 구성', price: 259000, pthumbFileName: '04_MOBBLY_마루_슬라이드_북케이스.png' },
+    { pid: 5, pname: '포포 멀티 토이 수납장', pdesc: '여섯 개의 칸과 분리형 바스켓으로 구성된 낮은 장난감 수납장', price: 329000, pthumbFileName: '05_MOBBLY_포포_멀티_토이_수납장.png' },
+    { pid: 6, pname: '모모 라운드 3단 서랍장', pdesc: '크림 컬러 서랍과 블루·오렌지 손잡이를 조합한 라운드 서랍장', price: 399000, pthumbFileName: '06_MOBBLY_모모_라운드_3단_서랍장.png' },
+    { pid: 7, pname: '해피홈 키즈 옷장 800', pdesc: '아치형 블루 도어와 오렌지 손잡이, 하단 선반을 갖춘 키즈 옷장', price: 549000, pthumbFileName: '07_MOBBLY_해피홈_키즈_옷장_800.png' },
+    { pid: 8, pname: '베니 스텝 수납 벤치', pdesc: '쿠션 벤치와 두 개의 서랍, 하단 스텝을 결합한 다기능 가구', price: 219000, pthumbFileName: '08_MOBBLY_베니_스텝_수납_벤치.png' },
+    { pid: 9, pname: '누보 클라우드 키즈 소파 2인', pdesc: '구름형 등받이와 크림 좌판으로 완성한 낮은 2인용 키즈 소파', price: 359000, pthumbFileName: '09_MOBBLY_누보_클라우드_키즈_소파_2인.png' },
+    { pid: 10, pname: '두두 플레이 테이블 세트', pdesc: '라운드 테이블과 쿠션 스툴 2개로 구성된 놀이·학습 테이블 세트', price: 319000, pthumbFileName: '10_MOBBLY_두두_플레이_테이블_세트.png' },
+    { pid: 11, pname: '콩콩 미니 스툴', pdesc: '삼각형 쿠션과 안정적인 세 개의 다리를 적용한 미니 스툴', price: 89000, pthumbFileName: '11_MOBBLY_콩콩_미니_스툴.png' },
+    { pid: 12, pname: '별빛 무드 사이드 테이블', pdesc: '별 모양 무드등과 서랍, 오픈 선반을 결합한 침대 옆 테이블', price: 159000, pthumbFileName: '12_MOBBLY_별빛_무드_사이드_테이블.png' }
+];

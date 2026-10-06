@@ -42,7 +42,7 @@ header{
     top:50px;
     width:100%;
     background-color: #fff;
-    padding:1.75rem 0;
+    padding:1.75rem 3rem 1rem;
     display: none;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
 }
@@ -72,6 +72,7 @@ header{
 }
 .gnb{
     display: flex;
+    padding-left: 3rem;
     gap: var(--space-normal);
     height:50px;
     font-weight: var(--fw2);
@@ -132,6 +133,9 @@ header{
     .smart-overlay-menu.on{
         transform: translateX(0%);
     }
+    .smart-overlay-menu .common-frame{
+        padding: 0 3rem;
+    }
     .smart-overlay-menu-1 .common-frame{
         display: flex;
         justify-content: center;
@@ -149,6 +153,12 @@ header{
     .btn-menu-close{
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
+    }
+    .btn-menu img,
+    .btn-menu-close img{
+        display: block;
+        width: 24px;
+        height: 24px;
     }
     .smart-overlay-menu-2 .common-frame{
         height:4.285rem;

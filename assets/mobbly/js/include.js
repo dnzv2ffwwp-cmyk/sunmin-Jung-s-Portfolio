@@ -186,6 +186,25 @@ function initializeIncludes() {
 
 window.initializeIncludes = initializeIncludes;
 
+// 이동할 주소가 없는 링크는 URL 변경이나 페이지 상단 이동이 발생하지 않게 한다.
+document.addEventListener('click', (event) => {
+    const link = event.target.closest('a');
+    if (!link) return;
+
+    const href = (link.getAttribute('href') || '').trim();
+    const pointsToMissingSection = href.startsWith('#')
+        && href.length > 1
+        && !document.getElementById(href.slice(1));
+    const hasNoDestination = href === ''
+        || href === '#'
+        || pointsToMissingSection
+        || /^javascript:\s*void\s*\(\s*0\s*\)$/i.test(href);
+
+    if (hasNoDestination) {
+        event.preventDefault();
+    }
+});
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeIncludes, { once: true });
 } else {

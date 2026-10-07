@@ -90,42 +90,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reviews = typeof reviewArray !== 'undefined' ? reviewArray : [];
 
-    document.querySelectorAll('.review > li').forEach((reviewItem, index) => {
-        const reviewData = reviews[index];
+    const reviewList = document.querySelector('.review');
+    if (reviewList && reviews.length) {
+        reviewList.innerHTML = reviews.map((reviewData) => `
+            <li data-product-type="${reviewData.productType}">
+                <div class="review-user">
+                    <span class="rev-name">${reviewData.userName}</span>
+                    <span class="rev-date">${reviewData.date}</span>
+                </div>
+                <div class="review-content">
+                    <div class="stars" role="img" aria-label="별점 ${reviewData.rating}점">
+                        ${'★'.repeat(reviewData.rating)}${'☆'.repeat(5 - reviewData.rating)}
+                    </div>
+                    <div class="review-txt fold">
+                        <h3>${reviewData.title}</h3>
+                        ${reviewData.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join('')}
+                        <button type="button" class="btn-rvtxt">더보기</button>
+                    </div>
+                    <div class="review-img">
+                        <ul class="review-gallery">
+                            ${reviewData.reviewImgs.map((src, imageIndex) =>
+                                `<li><img src="${src}" alt="${reviewData.productType} 사용 후기 사진 ${imageIndex + 1}"></li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                    <div class="review-etc">
+                        <a href="#">유용해요</a>
+                        <a href="#">신고</a>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    document.querySelectorAll('.review > li').forEach((reviewItem) => {
         const review = reviewItem.querySelector('.review-txt');
         if (!review) return;
 
-        review.classList.add('fold');
         const button = review.querySelector('button');
         if (button) {
-            button.classList.add('btn-rvtxt');
-            button.innerHTML = '더보기';
             button.addEventListener('click', () => {
                 review.classList.toggle('fold');
                 button.textContent = review.classList.contains('fold') ? '더보기' : '접기';
             });
-        }
-        const paragraph = review.querySelector('p');
-        if (paragraph && reviewData) {
-            paragraph.innerHTML = `<strong>${reviewData.title}</strong><br>${reviewData.reviewTxt}`;
-        }
-
-        const name = reviewItem.querySelector('.rev-name');
-        const date = reviewItem.querySelector('.rev-date');
-        if (name && reviewData) name.textContent = reviewData.userName;
-        if (date && reviewData) date.textContent = reviewData.date;
-
-        const stars = reviewItem.querySelector('.stars');
-        if (stars && reviewData) {
-            stars.textContent = '★'.repeat(reviewData.rating) + '☆'.repeat(5 - reviewData.rating);
-            stars.setAttribute('aria-label', `별점 ${reviewData.rating}점`);
-        }
-
-        const gallery = reviewItem.querySelector('.review-gallery');
-        if (gallery && reviewData) {
-            gallery.innerHTML = reviewData.reviewImgs.map((src, imageIndex) =>
-                `<li><img src="${src}" alt="${reviewData.title} 후기 사진 ${imageIndex + 1}"></li>`
-            ).join('');
         }
     });
 

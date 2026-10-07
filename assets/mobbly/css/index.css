@@ -59,7 +59,10 @@
     height:0.875rem;
 }
 .con1{
-    padding: var(--space-3x-large);
+    padding: 1rem;
+}
+.con1 .title h1{
+    margin-top: 3rem;
 }
 
 

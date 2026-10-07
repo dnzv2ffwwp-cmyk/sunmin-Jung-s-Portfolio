@@ -144,6 +144,15 @@
   if(detailCarousel){
     const track = detailCarousel.querySelector('[data-detail-track]');
     const cards = [...track.querySelectorAll('.detail-card')];
+    const shouldSlide = cards.length >= 4;
+    detailCarousel.classList.toggle('is-static', !shouldSlide);
+
+    if(!shouldSlide){
+      track.removeAttribute('tabindex');
+      track.setAttribute('aria-label', '상세페이지 카드 목록');
+    }
+
+    if(shouldSlide){
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let current = Math.min(1, cards.length - 1);
     let scrollTimer = 0;
@@ -221,6 +230,7 @@
     window.addEventListener('resize', () => showCard(current, true), {passive: true});
     requestAnimationFrame(() => showCard(current, true));
     enableAutoplay(detailCarousel, () => showCard(current + 1));
+    }
   }
 
   if (window.location.hash === '#detail-page-title') {

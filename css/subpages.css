@@ -177,6 +177,12 @@ img { display: block; max-width: 100%; }
 .detail-card__media--beadphones {
   aspect-ratio: 432 / 803;
 }
+.detail-card__media--ampoule {
+  aspect-ratio: 860 / 1383;
+}
+.detail-card__media--kids-lotion {
+  aspect-ratio: 860 / 1536;
+}
 .detail-card__overlay { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: .04em; background: rgb(0 0 0 / 62%); color: #fff; font-family: 'Pretendard', sans-serif; font-size: clamp(20px, 1.7vw, 28px); font-weight: 600; opacity: 0; transition: opacity .18s ease; }
 .detail-card__overlay img { width: 1.35em; height: 1.25em; margin-inline: -.2em; filter: invert(1); }
 .detail-card:hover .detail-card__overlay,

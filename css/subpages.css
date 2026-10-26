@@ -131,27 +131,11 @@ img { display: block; max-width: 100%; }
 .detail-carousel__arrow { display: grid; place-items: center; width: clamp(36px, 4.5vw, 52px); height: clamp(36px, 4.5vw, 52px); padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
 .detail-carousel__arrow:hover,
 .detail-carousel__arrow:focus-visible { outline: 2px solid #101719; outline-offset: 3px; }
-.detail-carousel__track { --detail-card-width: clamp(230px, 34vw, 460px); position: relative; display: flex; gap: clamp(12px, 2.4vw, 30px); padding-inline: calc((100% - var(--detail-card-width)) / 2); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; scrollbar-width: none; }
-.detail-carousel__track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.detail-carousel__track { --detail-grid-gap: clamp(15px, 2vw, 32px); position: relative; display: flex; align-items: flex-start; gap: var(--detail-grid-gap); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .detail-carousel__track::-webkit-scrollbar { display: none; }
-.detail-card { flex: 0 0 var(--detail-card-width); min-width: 0; scroll-snap-align: center; text-decoration: none; }
-.detail-carousel.is-static { display: block; }
-.detail-carousel.is-static .detail-carousel__arrow { display: none; }
-.detail-carousel.is-static .detail-carousel__track {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 460px));
-  justify-content: center;
-  align-items: start;
-  overflow: visible;
-  padding-inline: 0;
-  scroll-snap-type: none;
-}
-.detail-carousel.is-static .detail-card {
-  width: 100%;
-  min-width: 0;
-}
+.detail-card { flex: 0 0 calc((100% - 2 * var(--detail-grid-gap)) / 3); min-width: 0; scroll-snap-align: start; text-decoration: none; }
 .detail-card img { user-select: none; -webkit-user-drag: none; }
-.detail-card__media { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; background: #ece9e2; }
+.detail-card__media { position: relative; display: block; aspect-ratio: 860 / 1536; overflow: hidden; background: #ece9e2; }
 .detail-card__media > img {
   position: absolute;
   inset: 0;
@@ -159,30 +143,12 @@ img { display: block; max-width: 100%; }
   width: 100%;
   max-width: none;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   object-position: center;
+  transition: filter .18s ease, opacity .18s ease;
 }
-.detail-card__media > img[src$="ampoule-thumbnail.jpg"],
-.detail-card__media > img[src$="beadphones-thumbnail.jpg"] {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-}
-.detail-card__media > img[src$="beadphones-thumbnail.jpg"] {
-  object-fit: cover;
-  transform: none;
-}
-.detail-card__media--beadphones {
-  aspect-ratio: 432 / 803;
-}
-.detail-card__media--ampoule {
-  aspect-ratio: 860 / 1383;
-}
-.detail-card__media--kids-lotion {
-  aspect-ratio: 860 / 1536;
-}
+.detail-card:hover .detail-card__media > img,
+.detail-card:focus-visible .detail-card__media > img { filter: blur(3px); opacity: .65; }
 .detail-card__overlay { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: .04em; background: rgb(0 0 0 / 62%); color: #fff; font-family: 'Pretendard', sans-serif; font-size: clamp(20px, 1.7vw, 28px); font-weight: 600; opacity: 0; transition: opacity .18s ease; }
 .detail-card__overlay img { width: 1.35em; height: 1.25em; margin-inline: -.2em; filter: invert(1); }
 .detail-card:hover .detail-card__overlay,
@@ -272,7 +238,8 @@ img { display: block; max-width: 100%; }
   .banner-carousel__arrow { width: 32px; height: 32px; font-size: 19px; }
   .detail-carousel { grid-template-columns: 32px minmax(0, 1fr) 32px; gap: 6px; }
   .detail-carousel__arrow { width: 32px; height: 32px; font-size: 19px; }
-  .detail-carousel__track { --detail-card-width: min(68vw, 320px); gap: 12px; }
+  .detail-carousel__track { --detail-grid-gap: 14px; }
+  .detail-card { flex-basis: 100%; }
   .detail-card__caption { display: block; font-size: 12px; }
   .detail-card__caption span { display: block; margin-top: 3px; }
   .detail-showcase__intro { display: block; margin-bottom: 32px; }

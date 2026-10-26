@@ -69,11 +69,11 @@
     enableAutoplay(carousel, () => showSlide(current + 1));
   }
 
-  document.querySelectorAll('[data-work-carousel]').forEach(carousel => {
-    const track = carousel.querySelector('[data-work-track]');
-    const slides = [...track.querySelectorAll('figure')];
-    const previous = carousel.querySelector('[data-work-prev]');
-    const next = carousel.querySelector('[data-work-next]');
+  document.querySelectorAll('[data-work-carousel], [data-detail-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('[data-work-track], [data-detail-track]');
+    const slides = [...track.children];
+    const previous = carousel.querySelector('[data-work-prev], [data-detail-prev]');
+    const next = carousel.querySelector('[data-work-next], [data-detail-next]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let current = 0;
     let scrollTimer = 0;
@@ -83,17 +83,19 @@
     slides.forEach(slide => {
       const clone = slide.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
+      if(clone.matches('a')) clone.tabIndex = -1;
       before.appendChild(clone);
     });
     slides.forEach(slide => {
       const clone = slide.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
+      if(clone.matches('a')) clone.tabIndex = -1;
       after.appendChild(clone);
     });
     track.insertBefore(before, track.firstChild);
     track.appendChild(after);
 
-    const items = [...track.querySelectorAll('figure')];
+    const items = [...track.children];
     const origin = slides.length;
 
     function itemLeft(index){
@@ -139,99 +141,6 @@
     requestAnimationFrame(() => showOriginal(0, true));
     enableAutoplay(carousel, () => move(1));
   });
-
-  const detailCarousel = document.querySelector('[data-detail-carousel]');
-  if(detailCarousel){
-    const track = detailCarousel.querySelector('[data-detail-track]');
-    const cards = [...track.querySelectorAll('.detail-card')];
-    const shouldSlide = cards.length >= 4;
-    detailCarousel.classList.toggle('is-static', !shouldSlide);
-
-    if(!shouldSlide){
-      track.removeAttribute('tabindex');
-      track.setAttribute('aria-label', '상세페이지 카드 목록');
-    }
-
-    if(shouldSlide){
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let current = Math.min(1, cards.length - 1);
-    let scrollTimer = 0;
-    let dragStartX = 0;
-    let dragStartScroll = 0;
-    let dragging = false;
-    let moved = false;
-    let suppressClick = false;
-
-    function nearestCard(){
-      const center = track.scrollLeft + track.clientWidth / 2;
-      return cards.reduce((best, card, index) =>
-        Math.abs(card.offsetLeft + card.clientWidth / 2 - center)
-          < Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center)
-          ? index : best, 0);
-    }
-
-    function showCard(index, instant = false){
-      current = (index + cards.length) % cards.length;
-      const card = cards[current];
-      const left = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
-      track.scrollTo({left, behavior: instant || reducedMotion.matches ? 'auto' : 'smooth'});
-    }
-
-    detailCarousel.querySelector('[data-detail-prev]').addEventListener('click', () => showCard(current - 1));
-    detailCarousel.querySelector('[data-detail-next]').addEventListener('click', () => showCard(current + 1));
-    track.addEventListener('scroll', () => {
-      window.clearTimeout(scrollTimer);
-      scrollTimer = window.setTimeout(() => { current = nearestCard(); }, 120);
-    }, {passive: true});
-    track.addEventListener('keydown', event => {
-      if(event.key === 'ArrowLeft' || event.key === 'ArrowRight'){
-        event.preventDefault();
-        showCard(current + (event.key === 'ArrowRight' ? 1 : -1));
-      }
-    });
-    track.addEventListener('pointerdown', event => {
-      if(event.pointerType !== 'mouse' || event.button !== 0) return;
-      dragging = true;
-      moved = false;
-      dragStartX = event.clientX;
-      dragStartScroll = track.scrollLeft;
-    });
-    track.addEventListener('pointermove', event => {
-      if(!dragging) return;
-      if(!moved && Math.abs(event.clientX - dragStartX) > 5){
-        moved = true;
-        track.setPointerCapture(event.pointerId);
-      }
-      if(moved){
-        track.classList.add('is-dragging');
-        track.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
-      }
-    });
-    function endDrag(event){
-      if(!dragging) return;
-      dragging = false;
-      track.classList.remove('is-dragging');
-      if(track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
-      if(moved){
-        suppressClick = true;
-        showCard(nearestCard());
-        window.setTimeout(() => { suppressClick = false; }, 200);
-      }
-    }
-    track.addEventListener('pointerup', endDrag);
-    track.addEventListener('pointercancel', endDrag);
-    track.addEventListener('click', event => {
-      if(suppressClick){
-        event.preventDefault();
-        event.stopPropagation();
-        suppressClick = false;
-      }
-    }, true);
-    window.addEventListener('resize', () => showCard(current, true), {passive: true});
-    requestAnimationFrame(() => showCard(current, true));
-    enableAutoplay(detailCarousel, () => showCard(current + 1));
-    }
-  }
 
   if (window.location.hash === '#detail-page-title') {
     const detailSection = document.getElementById('detail-page-title');

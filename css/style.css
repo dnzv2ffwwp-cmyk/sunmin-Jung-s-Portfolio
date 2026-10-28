@@ -835,3 +835,8 @@ body{overflow-x:clip;font-family:"SEBANG Gothic",sans-serif;font-weight:400;word
     transition: none;
   }
 }
+
+/* Newest previews appear first and remain in front of older work. */
+.folder__posters img:nth-child(1) { z-index: 3; }
+.folder__posters img:nth-child(2) { z-index: 2; }
+.folder__posters img:nth-child(3) { z-index: 1; }

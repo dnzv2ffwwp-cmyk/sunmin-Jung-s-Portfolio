@@ -675,13 +675,14 @@ body{overflow-x:clip;font-family:"SEBANG Gothic",sans-serif;font-weight:400;word
 .visual-folder--pink:is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: translate(-25%,-100%) rotate(-14deg); }
 .visual-folder--pink:is(:hover,:focus-visible) .folder__posters img:nth-child(2) { transform: translate(0,-100%) rotate(0deg); }
 .visual-folder--pink:is(:hover,:focus-visible) .folder__posters img:nth-child(3) { transform: translate(25%,-100%) rotate(14deg); }
-.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: translate(-25%,-60%) rotate(-14deg); }
-.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(2) { transform: translate(0,-60%) rotate(0deg); }
-.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(3) { transform: translate(25%,-60%) rotate(14deg); }
-.visual-folder--red .folder__posters img,
-.visual-folder--purple .folder__posters img { top: 5%; left: 25%; width: 50%; height: 57%; object-fit: cover; object-position: top; transform: none; }
-.visual-works .visual-folder--red:is(:hover,:focus-visible) .folder__posters img:nth-child(1),
-.visual-works .visual-folder--purple:not(.visual-folder--center):is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: translateY(-45%); }
+.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(1),
+.visual-folder--purple:is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: translate(-25%,-60%) rotate(-14deg); }
+.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(2),
+.visual-folder--purple:is(:hover,:focus-visible) .folder__posters img:nth-child(2) { transform: translate(0,-60%) rotate(0deg); }
+.visual-folder--orange:is(:hover,:focus-visible) .folder__posters img:nth-child(3),
+.visual-folder--purple:is(:hover,:focus-visible) .folder__posters img:nth-child(3) { transform: translate(25%,-60%) rotate(14deg); }
+.visual-folder--red .folder__posters img { top: 5%; left: 25%; width: 50%; height: 57%; object-fit: cover; object-position: top; transform: none; }
+.visual-works .visual-folder--red:is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: translateY(-45%); }
 .visual-folder--center .folder__posters img { top: -1%; left: 23%; width: 54%; height: 57%; transform: none; }
 .visual-works .visual-folder--center:is(:hover,:focus-visible) .folder__posters img:nth-child(1) { transform: none; }
 
